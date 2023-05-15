@@ -1,0 +1,139 @@
+﻿<div ng-controller="DashboardController" class="DashboardMain">
+    <div class="topmenu"></div>
+    <div class="DashboardBody">
+        <div class="mainleft">
+            <div id="mapWidget" class="mapWidget box">
+                <div class="boxHeader">ALL INDIA PERFORMANCE</div>
+                <div id="MapContainer"></div>
+            </div>
+            <div class="kpiSnapshot box "><div class="boxHeader"><div class="boxheadetxt">KPI SNAPSHOT</div></div>
+                <div class="kpiSnapshotContainer">
+                    <div class="kpiSnapshotBox KPIBox"  ng-repeat="eachitm in KPISnapshotObj">
+                        <div class="kpiSnapshotHeader">{{eachitm.Header}}</div>
+                        <div class="kpiSnapshotbody">
+                            <div class="kpiSnapshotValue">{{eachitm.Value}}%</div>
+                            <div class="kpiSnapshotChng">{{eachitm.Chng}}<div class="NnPCredup"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mainright">
+            <div class="kpiTrendBar box" style="top: 2.4%;">
+                <div class="boxHeader boxHeader_adj_trnd"><div class="boxheadetxt">KPI TREND</div></div>
+                
+            </div>
+            <div class="sixWidget">
+                <div class="dynamicWidget box boxleft1p">
+                    <div class="boxHeader boxHeader_adj_six"></div>
+                    <div class="NnPCContainer">
+                        <div class="NnPcharteachRow" ng-repeat="eachitm in DynamicWid">
+                            <div class="NnPCName">{{eachitm.NnPCName}}</div>
+                            <div class="NnPChart">
+                                <div class="NnPCNegbar" style="visibility:{{showNegorpos(eachitm.NnPCValue,true)}}"><div class="NnPCNegbar_ico"></div><div class="NnPCNegbar_neg plotneg" style="width:{{BindNnPCbarwidth(eachitm.NnPCValue,true)}}%"></div></div>
+                                <div class="NnPCPosbar" style="visibility:{{showNegorpos(eachitm.NnPCValue,false)}}"><div class="NnPCNegbar_pos plotpos"  style="width:{{BindNnPCbarwidth(eachitm.NnPCValue,false)}}%"></div><div class="NnPCPosbar_ico"></div></div>
+                            </div>
+                            <div class="NnPCValue">{{eachitm.NnPCValue}}%</div>
+                            <div class="NnPCChg">{{eachitm.NnPCChg}}<div class="NnPCredup"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="categoryWidget box"><div class="boxHeader boxHeader_adj_six"><div class="boxheadetxt">CATEGORY PERFORMANCE</div></div>
+                    
+                    <div class="NnPCContainer">
+                        <div class="NnPcharteachRow" ng-if="DynamicWid != null" ng-repeat="eachitm in DynamicWid">
+                            <div class="NnPCName">{{eachitm.NnPCName}}</div>
+                            <div class="NnPChart">
+                                <div class="NnPCNegbar" style="visibility:{{showNegorpos(eachitm.NnPCValue,true)}}"><div class="NnPCNegbar_ico"></div><div class="NnPCNegbar_neg plotneg" style="width:{{BindNnPCbarwidth(eachitm.NnPCValue,true)}}%"></div></div>
+                                <div class="NnPCPosbar" style="visibility:{{showNegorpos(eachitm.NnPCValue,false)}}"><div class="NnPCNegbar_pos plotpos" style="width:{{BindNnPCbarwidth(eachitm.NnPCValue,false)}}%"></div><div class="NnPCPosbar_ico"></div></div>
+                            </div>
+                            <div class="NnPCValue">{{eachitm.NnPCValue}}%</div>
+                            <div class="NnPCChg">{{eachitm.NnPCChg}}</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="companyWidget box"><div class="boxHeader boxHeader_adj_six"><div class="boxheadetxt">COMPANY PERFORMANCE</div></div>
+                   
+                    <div class="NnPCContainer">
+                        <div class="NnPcharteachRow" ng-if="DynamicWid != null" ng-repeat="eachitm in DynamicWid">
+                            <div class="NnPCName">{{eachitm.NnPCName}}</div>
+                            <div class="NnPChart">
+                                <div class="NnPCNegbar" style="visibility:{{showNegorpos(eachitm.NnPCValue,true)}}"><div class="NnPCNegbar_ico"></div><div class="NnPCNegbar_neg plotneg" style="width:{{BindNnPCbarwidth(eachitm.NnPCValue,true)}}%"></div></div>
+                                <div class="NnPCPosbar" style="visibility:{{showNegorpos(eachitm.NnPCValue,false)}}"><div class="NnPCNegbar_pos plotpos" style="width:{{BindNnPCbarwidth(eachitm.NnPCValue,false)}}%"></div><div class="NnPCPosbar_ico"></div></div>
+                            </div>
+                            <div class="NnPCValue">{{eachitm.NnPCValue}}%</div>
+                            <div class="NnPCChg">{{eachitm.NnPCChg}}</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="brandWidget box boxleft1p"><div class="boxHeader boxHeader_adj_six"><div class="boxheadetxt">BRAND PERFORMANCE</div></div>
+                    
+                    <div class="NnPCContainer">
+                        <div class="NnPcharteachRow" ng-if="DynamicWid != null" ng-repeat="eachitm in DynamicWid">
+                            <div class="NnPCName">{{eachitm.NnPCName}}</div>
+                            <div class="NnPChart">
+                                <div class="NnPCNegbar" style="visibility:{{showNegorpos(eachitm.NnPCValue,true)}}"><div class="NnPCNegbar_ico"></div><div class="NnPCNegbar_neg plotneg" style="width:{{BindNnPCbarwidth(eachitm.NnPCValue,true)}}%"></div></div>
+                                <div class="NnPCPosbar" style="visibility:{{showNegorpos(eachitm.NnPCValue,false)}}"><div class="NnPCNegbar_pos plotpos" style="width:{{BindNnPCbarwidth(eachitm.NnPCValue,false)}}%"></div><div class="NnPCPosbar_ico"></div></div>
+                            </div>
+                            <div class="NnPCValue">{{eachitm.NnPCValue}}%</div>
+                            <div class="NnPCChg">{{eachitm.NnPCChg}}</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="flavourWidget box">
+                    <div class="boxHeader boxHeader_adj_six"><div class="boxheadetxt">FLAVOUR PERFORMANCE</div></div>
+                    
+                    <div class="NnPCContainer">
+                        <div class="NnPcharteachRow" ng-if="DynamicWid != null" ng-repeat="eachitm in DynamicWid">
+                            <div class="NnPCName">{{eachitm.NnPCName}}</div>
+                            <div class="NnPChart">
+                                <div class="NnPCNegbar" style="visibility:{{showNegorpos(eachitm.NnPCValue,true)}}"><div class="NnPCNegbar_ico"></div><div class="NnPCNegbar_neg plotneg" style="width:{{BindNnPCbarwidth(eachitm.NnPCValue,true)}}%"></div></div>
+                                <div class="NnPCPosbar" style="visibility:{{showNegorpos(eachitm.NnPCValue,false)}}"><div class="NnPCNegbar_pos plotpos" style="width:{{BindNnPCbarwidth(eachitm.NnPCValue,false)}}%"></div><div class="NnPCPosbar_ico"></div></div>
+                            </div>
+                            <div class="NnPCValue">{{eachitm.NnPCValue}}%</div>
+                            <div class="NnPCChg">{{eachitm.NnPCChg}}</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="packWidget box"><div class="boxHeader boxHeader_adj_six"><div class="boxheadetxt">PACK PERFORMANCE</div></div>
+                    
+                    <div class="NnPCContainer">
+                        <div class="NnPcharteachRow" ng-if="DynamicWid != null" ng-repeat="eachitm in DynamicWid">
+                            <div class="NnPCName">{{eachitm.NnPCName}}</div>
+                            <div class="NnPChart">
+                                <div class="NnPCNegbar" style="visibility:{{showNegorpos(eachitm.NnPCValue,true)}}"><div class="NnPCNegbar_ico"></div><div class="NnPCNegbar_neg plotneg" style="width:{{BindNnPCbarwidth(eachitm.NnPCValue,true)}}%"></div></div>
+                                <div class="NnPCPosbar" style="visibility:{{showNegorpos(eachitm.NnPCValue,false)}}"><div class="NnPCNegbar_pos plotpos" style="width:{{BindNnPCbarwidth(eachitm.NnPCValue,false)}}%"></div><div class="NnPCPosbar_ico"></div></div>
+                            </div>
+                            <div class="NnPCValue">{{eachitm.NnPCValue}}%</div>
+                            <div class="NnPCChg">{{eachitm.NnPCChg}}</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="widget-values">
+                       <div class="widget-row-name">
+                           <div class="row-name-icon" style="display: none;"></div>
+                           <div class="row-name-text" title="Montain Dew">Montain Dew</div>
+                       </div>
+                       <div class="widget-graph">
+                           <div class="negative-graph">
+                               <div class="graph-bar" style="width: 24%;"></div>
+                               <div class="graph-icon"></div>
+                           </div>
+                           <div class="positive-graph"></div>
+                       </div>
+                       <div class="widget-measure">3.2</div>
+                       <div class="widget-change">
+                           <div class="widget-change-text">-0.3</div>
+                           <div class="widget-change-icon negative"></div>
+                       </div>
+                   </div>-->

@@ -1,0 +1,10 @@
+D:\CCI_HH\trunk\CCI_HH_Panel\Entities\bin\Debug\Entities.dll
+D:\CCI_HH\trunk\CCI_HH_Panel\Entities\bin\Debug\Entities.pdb
+D:\CCI_HH\trunk\CCI_HH_Panel\Entities\obj\Debug\Entities.csprojAssemblyReference.cache
+D:\CCI_HH\trunk\CCI_HH_Panel\Entities\obj\Debug\Entities.csproj.CoreCompileInputs.cache
+D:\CCI_HH\trunk\CCI_HH_Panel\Entities\obj\Debug\Entities.dll
+D:\CCI_HH\trunk\CCI_HH_Panel\Entities\obj\Debug\Entities.pdb
+D:\CCI_PRojects\CCI_HH\trunk\CCI_HH_Panel\Entities\bin\Debug\Entities.dll
+D:\CCI_PRojects\CCI_HH\trunk\CCI_HH_Panel\Entities\bin\Debug\Entities.pdb
+D:\CCI_PRojects\CCI_HH\trunk\CCI_HH_Panel\Entities\obj\Debug\Entities.dll
+D:\CCI_PRojects\CCI_HH\trunk\CCI_HH_Panel\Entities\obj\Debug\Entities.pdb

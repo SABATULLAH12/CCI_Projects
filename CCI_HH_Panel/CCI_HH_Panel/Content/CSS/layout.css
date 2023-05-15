@@ -1,0 +1,251 @@
+﻿html {
+    height: 100%;
+    min-height: 155px;
+    min-width: 300px;
+    overflow: auto;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+body, html {
+    font-family: 'Montserrat';
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    font-size: 1vw;
+    background-color: black;
+    background-image: url('../Images/KH_BackgroundImagr.jpg');
+    background-size: cover;
+    padding: 0;
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+
+.container-view {
+    width: 100%;
+    height: 100%;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.container-header {
+    width: 100%;
+    height: 8%;
+}
+
+.container-footer {
+    position: relative;
+    width: 100%;
+    height: 4%;
+    color: white;
+    padding-top: 1vh;
+    font-size: 1em;
+}
+
+.footer-source {
+    position: absolute;
+    left: 0;
+    width: 35%;
+}
+
+.footer-absolute-message {
+    position: absolute;
+    left: 45%;
+    width: 40%;
+    display: none;
+}
+
+.footer-significance {
+    position: absolute;
+    right: 0;
+    width: 13%;
+}
+
+.header-logo-container {
+    width: 25%;
+    height: 100%;
+    position: relative;
+    float: left;
+    padding: .2%;
+}
+
+.significance-div {
+    height: 100%;
+    width: 50%;
+    float: left;
+}
+
+#highSignificanceIcon {
+    background: url('../Images/KH_Sprite_chart significance 2.svg');
+    background-size: contain;
+    height: 2.1vh;
+    width: 1.1vw;
+    background-position: center;
+    float: left;
+}
+
+#lowSignificanceIcon {
+    background: url('../Images/KH_Sprite_chart significance 1.svg');
+    background-size: contain;
+    height: 2.1vh;
+    width: 1.1vw;
+    background-position: center;
+    float: left;
+}
+
+#highSignificanceText {
+    position: absolute;
+    left: 12%;
+}
+
+#lowSignificanceText {
+    position: absolute;
+    left: 64%;
+}
+
+.header-module-container {
+    width: 55%;
+    height: 100%;
+    position: relative;
+    float: left;
+}
+
+.header-icons {
+    width: 20%;
+    height: 100%;
+    position: relative;
+    float: left;
+    padding: .4%;
+    padding-right: 0%;
+}
+
+.logo-icon {
+    background: url('../Images/KH_Sprite_Logo_HH Panel.svg') no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 23vw;
+    height: 8vh;
+}
+
+.module-container {
+    position: relative;
+    margin: auto;
+    width: 30%;
+    height: 100%;
+    color: #fff;
+    line-height: 9vh;
+    font-family: Montserrat-Medium;
+    text-align: center;
+    font-size: 2.6vh;
+    text-transform: uppercase;
+    background: url('../Images/KH_Sprite_Kaleidoscope.svg') no-repeat;
+    background-position: center;
+    background-size: 200% 150%;
+}
+
+.logout-icon {
+    position: relative;
+    background: url('../Images/KH_Sprite_Logout.svg') no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    height: 7vh;
+    width: 4vw;
+    float: right;
+    background-position: center;
+}
+
+.logout-icon:hover {
+    background: url('../Images/KH_Sprite_Logout_hover.svg') no-repeat;
+    background-size: cover;
+    height: 7vh;
+    width: 4vw;
+    background-position: center;
+}
+
+.setting-icon {
+    position: relative;
+    background: url('../Images/KH_Sprite_settings.svg') no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    height: 7vh;
+    width: 4vw;
+    margin-right: 2%;
+    float: right;
+    background-position: center;
+}
+
+.setting-icon:hover {
+    background: url('../Images/KH_Sprite_settings_hover.svg') no-repeat;
+    background-size: cover;
+    height: 7vh;
+    width: 4vw;
+    background-position: center;
+}
+
+.home-icon {
+    position: relative;
+    background: url('../Images/KH_Sprite_home.svg') no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    height: 7vh;
+    width: 4vw;
+    margin-right: 2%;
+    float: right;
+    background-position: center;
+}
+
+.home-icon:hover {
+    background: url('../Images/KH_Sprite_home_hover.svg') no-repeat;
+    background-size: cover;
+    height: 7vh;
+    width: 4vw;
+    background-position: center;
+}
+
+.calendar-icon {
+    position: relative;
+    background: url('../Images/KH_Sprite_calendar.svg') no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    height: 7vh;
+    width: 4vw;
+    margin-right: 2%;
+    float: right;
+    background-position: center;
+}
+
+.calendar-icon:hover {
+    background: url('../Images/KH_Sprite_calendar_hover.svg') no-repeat;
+    background-size: cover;
+    height: 7vh;
+    width: 4vw;
+    background-position: center;
+}
+
+.TranslucentDiv {
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#Loader {
+    bottom: 0;
+    height: 200px;
+    left: 0;
+    margin: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 200px;
+    z-index: 100000;
+}

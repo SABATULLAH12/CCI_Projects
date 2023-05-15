@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" href="~/Content/favicon.ico?v1" type="image/x-icon" sizes="16x16" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <link href="~/Content/Montserrat.css" rel='stylesheet' />
+    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Content/Oswald.css" rel='stylesheet' />
+    <script src="~/scripts/Plugin/HighCharts.js"></script>
+    <script src="~/scripts/Plugin/highcharts-more.js"></script>
+    <script src="~/scripts/Plugin/variable-pie.js"></script>
+    <script src="~/scripts/Plugin/no-data-to-display.js"></script>
+    <script src="~/Scripts/Plugin/require.js" data-main="../Scripts/RequireConf"></script>
+    <base href="/Home/Index#!/">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id='@System.Configuration.ConfigurationManager.AppSettings[System.Configuration.ConfigurationManager.AppSettings["UseGID"].ToString()].ToString()'"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', '@ViewBag.GID', { 'page_path': 'BuisnessSnapshot/'});
+    </script>
+</head>
+<body id="body2" style="background-color:black" >
+    <script type="text/javascript">
+        sessionStorage['HomeButtonUrl'] = '@System.Configuration.ConfigurationManager.AppSettings["HomeButtonUrl"].ToString()';
+        sessionStorage['GID'] = '@System.Configuration.ConfigurationManager.AppSettings[System.Configuration.ConfigurationManager.AppSettings["UseGID"].ToString()].ToString()';
+    </script>
+    
+    @RenderBody()
+</body>
+</html>

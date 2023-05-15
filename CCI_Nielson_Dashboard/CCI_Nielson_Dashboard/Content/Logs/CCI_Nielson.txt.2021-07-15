@@ -1,0 +1,131 @@
+2021-07-15 12:22:46,546 [1] DEBUG  Application - Application Started
+2021-07-15 12:22:54,329 [7] DEBUG  Application - query0 CompanyMapping 'WITH MEMBER CompanyID AS [PRODUCTS].[Company].CURRENTMEMBER.UNIQUENAME
+        SELECT {CompanyID} ON COLUMNS
+        ,{[PRODUCTS].[Company].[Company].ALLMEMBERS}
+        HAVING CompanyID <> '[PRODUCTS].[Company].&'ON ROWS
+        FROM [Model]'
+2021-07-15 12:22:54,330 [7] DEBUG  Application - query1 BrandMapping 'WITH MEMBER BrandID AS [PRODUCTS].[Brand].CURRENTMEMBER.UNIQUENAME
+        SELECT {BrandID} ON COLUMNS
+        ,{[PRODUCTS].[Brand].[Brand].ALLMEMBERS}
+        HAVING BrandID <> '[PRODUCTS].[Brand].&'ON ROWS
+        FROM [Model]'
+2021-07-15 12:22:54,332 [7] DEBUG  Application - query2 PackMappingQuery 'WITH
+        MEMBER PackID AS [PRODUCTS].[PK Size].CURRENTMEMBER.UNIQUENAME
+        MEMBER PackType AS [PRODUCTS].[PK Type].CURRENTMEMBER.properties('member_name')
+        SELECT {PackID} ON COLUMNS
+        ,{[PRODUCTS].[PK Type].[PK Type].ALLMEMBERS * [PRODUCTS].[PK Size].[PK Size].ALLMEMBERS}
+        HAVING(PackID<>'[PRODUCTS].[PK Size].&' and PackType<>'')ON ROWS
+        FROM [Model]
+        WHERE {[PRODUCTS].[Local Category].&[SPARKLING SOFT DRINKS]}'
+2021-07-15 12:22:54,334 [7] DEBUG  Application - query3 FlavoursMapping 'WITH MEMBER FlavourId AS [PRODUCTS].[Flavours].CURRENTMEMBER.UNIQUENAME
+        SELECT {FlavourId} ON COLUMNS
+        ,{[PRODUCTS].[Flavours].[Flavours].ALLMEMBERS}
+        HAVING FlavourId <> '[PRODUCTS].[Flavours].&'ON ROWS
+        FROM [Model]'
+2021-07-15 12:22:54,335 [7] DEBUG  Application - query4 TimePeriodMapping 'WITH MEMBER MonthName AS left([PERIODS].[H_Date].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),3)
+        MEMBER MonthId AS [PERIODS].[H_Date].CURRENTMEMBER.UNIQUENAME
+        MEMBER YTDName AS left([PERIODS].[H_Date].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),3)
+        MEMBER YTDId AS [PERIODS].[H_Date].CURRENTMEMBER.UNIQUENAME
+        MEMBER MATName AS left([PERIODS].[H_Date].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),3)
+        MEMBER MATId AS [PERIODS].[H_Date].CURRENTMEMBER.UNIQUENAME
+        MEMBER YearName AS [PERIODS].[H_Date].CURRENTMEMBER.PARENT.PARENT.PARENT.PROPERTIES('MEMBER_NAME')
+        MEMBER MonthNumber As CASE WHEN Monthname = 'Jan' THEN 1 WHEN Monthname = 'Feb' THEN 2 WHEN Monthname = 'Mar' THEN 3
+        WHEN Monthname = 'Apr' THEN 4 WHEN Monthname = 'May' THEN 5 WHEN Monthname = 'Jun' THEN 6 WHEN Monthname = 'Jul' THEN 7
+        WHEN Monthname = 'Aug' THEN 8 WHEN Monthname = 'Sep' THEN 9 WHEN Monthname = 'Oct' THEN 10 WHEN Monthname = 'Nov' THEN 11
+        WHEN Monthname = 'Dec' THEN 12 END
+        SELECT{YearName,MonthName,MonthId,YTDName,YTDId,MATName,MATId,MonthNumber}ON COLUMNS
+        ,{[PERIODS].[H_Date].[Month Name].ALLMEMBERS}ON ROWS
+        FROM [Model]'
+2021-07-15 12:22:54,336 [7] DEBUG  Application - query5 CategoryMapping 'WITH
+        MEMBER CategoryID AS [PRODUCTS].[Local Category].CURRENTMEMBER.UNIQUENAME
+        SELECT {CategoryID} ON COLUMNS
+        ,{[PRODUCTS].[Local Category].[Local Category].ALLMEMBERS}
+        HAVING CATEGORYID <> '[PRODUCTS].[Local Category].&'ON ROWS
+        FROM [Model]'
+2021-07-15 12:22:55,645 [13] DEBUG  Application - query0 CompanyMapping 'WITH MEMBER CompanyID AS [PRODUCTS].[Company].CURRENTMEMBER.UNIQUENAME
+        SELECT {CompanyID} ON COLUMNS
+        ,{[PRODUCTS].[Company].[Company].ALLMEMBERS}
+        HAVING CompanyID <> '[PRODUCTS].[Company].&'ON ROWS
+        FROM [Model]'
+2021-07-15 12:22:55,647 [13] DEBUG  Application - query1 BrandMapping 'WITH MEMBER BrandID AS [PRODUCTS].[Brand].CURRENTMEMBER.UNIQUENAME
+        SELECT {BrandID} ON COLUMNS
+        ,{[PRODUCTS].[Brand].[Brand].ALLMEMBERS}
+        HAVING BrandID <> '[PRODUCTS].[Brand].&'ON ROWS
+        FROM [Model]'
+2021-07-15 12:22:55,647 [13] DEBUG  Application - query2 PackMappingQuery 'WITH
+        MEMBER PackID AS [PRODUCTS].[PK Size].CURRENTMEMBER.UNIQUENAME
+        MEMBER PackType AS [PRODUCTS].[PK Type].CURRENTMEMBER.properties('member_name')
+        SELECT {PackID} ON COLUMNS
+        ,{[PRODUCTS].[PK Type].[PK Type].ALLMEMBERS * [PRODUCTS].[PK Size].[PK Size].ALLMEMBERS}
+        HAVING(PackID<>'[PRODUCTS].[PK Size].&' and PackType<>'')ON ROWS
+        FROM [Model]
+        WHERE {[PRODUCTS].[Local Category].&[SPARKLING SOFT DRINKS]}'
+2021-07-15 12:22:55,648 [13] DEBUG  Application - query3 FlavoursMapping 'WITH MEMBER FlavourId AS [PRODUCTS].[Flavours].CURRENTMEMBER.UNIQUENAME
+        SELECT {FlavourId} ON COLUMNS
+        ,{[PRODUCTS].[Flavours].[Flavours].ALLMEMBERS}
+        HAVING FlavourId <> '[PRODUCTS].[Flavours].&'ON ROWS
+        FROM [Model]'
+2021-07-15 12:22:55,649 [13] DEBUG  Application - query4 TimePeriodMapping 'WITH MEMBER MonthName AS left([PERIODS].[H_Date].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),3)
+        MEMBER MonthId AS [PERIODS].[H_Date].CURRENTMEMBER.UNIQUENAME
+        MEMBER YTDName AS left([PERIODS].[H_Date].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),3)
+        MEMBER YTDId AS [PERIODS].[H_Date].CURRENTMEMBER.UNIQUENAME
+        MEMBER MATName AS left([PERIODS].[H_Date].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),3)
+        MEMBER MATId AS [PERIODS].[H_Date].CURRENTMEMBER.UNIQUENAME
+        MEMBER YearName AS [PERIODS].[H_Date].CURRENTMEMBER.PARENT.PARENT.PARENT.PROPERTIES('MEMBER_NAME')
+        MEMBER MonthNumber As CASE WHEN Monthname = 'Jan' THEN 1 WHEN Monthname = 'Feb' THEN 2 WHEN Monthname = 'Mar' THEN 3
+        WHEN Monthname = 'Apr' THEN 4 WHEN Monthname = 'May' THEN 5 WHEN Monthname = 'Jun' THEN 6 WHEN Monthname = 'Jul' THEN 7
+        WHEN Monthname = 'Aug' THEN 8 WHEN Monthname = 'Sep' THEN 9 WHEN Monthname = 'Oct' THEN 10 WHEN Monthname = 'Nov' THEN 11
+        WHEN Monthname = 'Dec' THEN 12 END
+        SELECT{YearName,MonthName,MonthId,YTDName,YTDId,MATName,MATId,MonthNumber}ON COLUMNS
+        ,{[PERIODS].[H_Date].[Month Name].ALLMEMBERS}ON ROWS
+        FROM [Model]'
+2021-07-15 12:22:55,650 [13] DEBUG  Application - query5 CategoryMapping 'WITH
+        MEMBER CategoryID AS [PRODUCTS].[Local Category].CURRENTMEMBER.UNIQUENAME
+        SELECT {CategoryID} ON COLUMNS
+        ,{[PRODUCTS].[Local Category].[Local Category].ALLMEMBERS}
+        HAVING CATEGORYID <> '[PRODUCTS].[Local Category].&'ON ROWS
+        FROM [Model]'
+2021-07-15 12:22:55,656 [8] DEBUG  Application - DeepDive :Root Query- 'SELECT { [Measures].[17. Local Category MS Value YTD],[Measures].[17. Local Category MS Value YTD vs PY] } ON Columns,( {[PRODUCTS].[Local Category].&[SPARKLING SOFT DRINKS]},{[MARKET].[Short Description].&[All India (U+R) TT]}  ) On Rows FROM [Model] WHERE ({[PRODUCTS].[Local Share Ind].&[T]} ,{[PERIODS].[H_Date].[Year].&[2021].&[H1].&[Q2].&[April]},{[PRODUCTS].[Company].&[COCA-COLA INDIA]} ) '
+2021-07-15 12:22:55,657 [8] DEBUG  Application - DeepDive :Leaf Query- 'SELECT {  [Measures].[17. Local Category MS Value YTD],[Measures].[17. Local Category MS Value YTD vs PY] }  ON Columns,( { {[MARKET].[Short Description].&[All India (U+R)]} }) On Rows FROM [Model] WHERE ({[PRODUCTS].[Local Share Ind].&[T]} ,{[PERIODS].[H_Date].[Year].&[2021].&[H1].&[Q2].&[April]},{[PRODUCTS].[Company].&[COCA-COLA INDIA]},{[PRODUCTS].[Local Category].&[SPARKLING SOFT DRINKS]} )'
+2021-07-15 12:23:04,964 [16] DEBUG  Application - time Taken To open Connection: 7513ms for query:1
+2021-07-15 12:23:04,966 [16] DEBUG  Application - time Taken To run query: 814ms for query:1
+2021-07-15 12:23:04,967 [16] DEBUG  Application - time Taken To Close Connection: 210ms for query:1
+2021-07-15 12:23:04,965 [8] DEBUG  Application - time Taken To open Connection: 8250ms for query:0
+2021-07-15 12:23:04,969 [8] DEBUG  Application - time Taken To run query: 843ms for query:0
+2021-07-15 12:23:04,971 [8] DEBUG  Application - time Taken To Close Connection: 212ms for query:0
+2021-07-15 12:23:05,430 [19] DEBUG  Application - time Taken To open Connection: 4039ms for query:4
+2021-07-15 12:23:05,434 [19] DEBUG  Application - time Taken To run query: 1321ms for query:4
+2021-07-15 12:23:05,436 [19] DEBUG  Application - time Taken To Close Connection: 205ms for query:4
+2021-07-15 12:23:05,497 [11] DEBUG  Application - time Taken To open Connection: 9582ms for query:4
+2021-07-15 12:23:05,499 [11] DEBUG  Application - time Taken To run query: 1388ms for query:4
+2021-07-15 12:23:05,500 [11] DEBUG  Application - time Taken To Close Connection: 181ms for query:4
+2021-07-15 12:23:05,562 [17] DEBUG  Application - time Taken To open Connection: 6033ms for query:2
+2021-07-15 12:23:05,564 [17] DEBUG  Application - time Taken To run query: 1460ms for query:2
+2021-07-15 12:23:05,569 [17] DEBUG  Application - time Taken To Close Connection: 199ms for query:2
+2021-07-15 12:23:05,641 [10] DEBUG  Application - time Taken To open Connection: 9604ms for query:3
+2021-07-15 12:23:05,646 [10] DEBUG  Application - time Taken To run query: 1528ms for query:3
+2021-07-15 12:23:05,651 [10] DEBUG  Application - time Taken To Close Connection: 164ms for query:3
+2021-07-15 12:23:05,641 [18] DEBUG  Application - time Taken To open Connection: 5087ms for query:3
+2021-07-15 12:23:05,654 [18] DEBUG  Application - time Taken To run query: 1516ms for query:3
+2021-07-15 12:23:05,641 [9] DEBUG  Application - time Taken To open Connection: 9556ms for query:2
+2021-07-15 12:23:05,680 [9] DEBUG  Application - time Taken To run query: 1535ms for query:2
+2021-07-15 12:23:05,681 [9] DEBUG  Application - time Taken To Close Connection: 205ms for query:2
+2021-07-15 12:23:05,658 [18] DEBUG  Application - time Taken To Close Connection: 177ms for query:3
+2021-07-15 12:23:08,434 [19] DEBUG  Application - time Taken To open Connection: 2094ms for query:5
+2021-07-15 12:23:08,435 [19] DEBUG  Application - time Taken To run query: 719ms for query:5
+2021-07-15 12:23:08,437 [19] DEBUG  Application - time Taken To Close Connection: 179ms for query:5
+2021-07-15 12:23:08,454 [8] DEBUG  Application - time Taken To open Connection: 2088ms for query:5
+2021-07-15 12:23:08,457 [8] DEBUG  Application - time Taken To run query: 688ms for query:5
+2021-07-15 12:23:08,458 [8] DEBUG  Application - time Taken To Close Connection: 171ms for query:5
+2021-07-15 12:23:10,212 [13] DEBUG  Application - time Taken To open Connection: 8262ms for query:0
+2021-07-15 12:23:10,214 [13] DEBUG  Application - time Taken To run query: 6139ms for query:0
+2021-07-15 12:23:10,216 [13] DEBUG  Application - time Taken To Close Connection: 159ms for query:0
+2021-07-15 12:23:10,266 [7] DEBUG  Application - time Taken To open Connection: 9567ms for query:0
+2021-07-15 12:23:10,268 [7] DEBUG  Application - time Taken To run query: 6206ms for query:0
+2021-07-15 12:23:10,269 [7] DEBUG  Application - time Taken To Close Connection: 148ms for query:0
+2021-07-15 12:23:15,326 [12] DEBUG  Application - time Taken To open Connection: 8286ms for query:1
+2021-07-15 12:23:15,328 [12] DEBUG  Application - time Taken To run query: 11223ms for query:1
+2021-07-15 12:23:15,330 [12] DEBUG  Application - time Taken To Close Connection: 166ms for query:1
+2021-07-15 12:23:17,455 [6] DEBUG  Application - time Taken To open Connection: 9576ms for query:1
+2021-07-15 12:23:17,456 [6] DEBUG  Application - time Taken To run query: 13368ms for query:1
+2021-07-15 12:23:17,456 [6] DEBUG  Application - time Taken To Close Connection: 166ms for query:1

@@ -1,0 +1,93 @@
+﻿<div ng-controller="DeepdiveController" class="deepdiveMain">
+    <div class="deepdive_top_menu">
+        <div class="deepdive_top_filter_container">
+            <div ng-repeat="item in topPanel" ng-hide="item.IsHidden || !item.onTop" class="module_filter_item_container" ng-style="{'float':'left'}" ng-class="$index==0?'widthadjonlytimeperiod':''">
+                <div class="module_filter_text">{{item.DispName}}</div>
+                <div class="module_filter_selcontainer" ng-click="clickLayout();openCloseFilter(item);$event.stopPropagation()">
+                    <div class="module_filter_selectedtext_selcontainer" ng-attr-title="{{item.Selection.Name+ (item.Name=='timeperiod'? ' ' +item.Selection.Selection.Name:'' )}}">
+                        {{item.Selection.Name + (item.Name=='timeperiod'? " "+item.Selection.Selection.Name:"")}}
+                    </div>
+                    <div class="module_filter_arrowdown_selcontainer"></div>
+                </div>
+                <div class="calender_button" ng-if="item.Name=='timeperiod'" ng-class="{'calender_open':CalenderObject.IsTimePeriodOpen}" ng-click="clickLayout();$event.stopPropagation();OpenTimePeriodTab(!CalenderObject.IsTimePeriodOpen)"></div>
+                <div class="module_filter_item_list_container" ng-if="item.IsOpen && item.Name !='brand'" ng-click="$event.stopPropagation()">
+                    <div ng-repeat="item1 in item.Data" class="module_filter_item" ng-class="{'module_filter_item_selected':item.Selection.Name==item1.Name}" ng-click="selectFilterItem(item,item1)" ng-hide="item1.IsHidden">
+                        <span class="module_filter_item_text" ng-attr-title="{{::item1.Name}}">{{::item1.Name}}</span>
+                    </div>
+                </div>
+                <div class="module_filter_item_list_container brandDropwonWidth"  ng-if="item.IsOpen && item.Name=='brand'" ng-click="$event.stopPropagation()">
+                    <div ng-repeat="item1 in item.Data" class="module_filter_item" ng-class="{'module_filter_item_selected':item.Selection.Name==item1.Name}" ng-click="(item1.Data != null && item1.Data != undefined && item1.Data.length >0)?'':selectFilterItem(item,item1)" ng-hide="item1.IsHidden">
+                        <div class="drpbrndparnt"><div class="plus_icon_brand drpbrndparnt_plus" ng-click="ShowHideSubBrands($event.target)" ng-if="item1.Data.length >0" ></div><span class="module_filter_item_text" ng-attr-title="{{::item1.Name}}">{{::item1.Name}}</span></div>
+                        <div class="drpchild-cont" ng-if="item1.Data != null && item1.Data != undefined && item1.Data.length >0">
+                            <ul>                                 
+                                <li class="Brand_sub_item" ng-click="selectFilterItem(item,itm);higlightsub($event.target);" ng-repeat="itm in item1.Data" ng-class="{'Brand_sub_item_select':item.Selection.Name==itm.Name}" ng-attr-title="{{::itm.Name}}">{{::itm.Name}}</li>
+                            </ul>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="calender_container" ng-if="item.Name=='timeperiod'" ng-show="CalenderObject.IsTimePeriodOpen">
+                    <div class="calender_header">
+                        <div class="calender_header_year_text">{{CalenderObject.YearList[CalenderObject.YearCursorIndex].Name}}</div>
+                        <div class="calender_header_previous_year" ng-click="CalenderObject.DecrementYear();$event.stopPropagation();"></div>
+                        <div class="calender_header_next_year" ng-click="CalenderObject.IncrementYear();$event.stopPropagation();"></div>
+                    </div>
+                    <div class="calender_body">
+                        <div class="calender_body_item_container" ng-repeat="item in CalenderObject.YearList[CalenderObject.YearCursorIndex].MonthList"
+                             ng-class="{'calender_body_item_selected':(CalenderObject.YearCursorIndex == CalenderObject.SelectedYearIndex && item == CalenderObject.YearList[CalenderObject.YearCursorIndex].MonthList[CalenderObject.SelectedMonthIndex])}"
+                             ng-click="CalenderObject.SelectItem($index)">
+                            {{item}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="module_filter_item_container_Slider" style="display:none" ><div class="mficsslider_txt_PY mficsslider_bold" ng-click="changetoggle('py');" >PY</div><div class="mficsslider_PY" ng-click="changetoggle(null);"></div><div class="mficsslider_txt_LM" ng-click="changetoggle('lm');">LM</div></div>
+        </div>
+    </div>
+    <div class="deepdiveTopSelectios">
+        <div class="DTp_eachItem"  ng-repeat="item in DtpSelcetions" ><div ng-show="!$first" class="DTp_Arrow"></div><div class="DTp_hdrTxt">{{item.Name}} : </div><div class="DTp_valTxt">&nbsp;{{item.Value}}</div></div>
+    </div>
+    <div class="deepdive_body">
+        <div class="deepdive_body_filter_container">
+            <div ng-repeat="item in topPanel|orderBy:'orderID'" ng-hide="item.IsHidden || item.onTop" class="ddbody_filter_container">
+                <div class="ddbody_filter_item_container" ng-class="{'ddBody_filter_open':item.IsOpen}">
+                    <div class="ddbody_filter_item_name">{{item.DispName
+}}</div>
+                    <div class="ddbody_filter_item_selname">{{item.Selection==undefined?'None':item.Selection.Name}}</div>
+                    <div ng-class="{'ddbody_filter_openItem_button':!item.IsOpen,'ddbody_filter_closeItem_button':item.IsOpen}" ng-click="clickLayout();openCloseFilter(item);$event.stopPropagation()"></div>
+                </div>
+                <div class="ddbody_filter_item_icon" ng-class="[item.Name]"></div>
+                <div class="ddbody_filter_item_list_container" ng-if="item.IsOpen" ng-click="$event.stopPropagation()">
+                    <div ng-repeat="item1 in item.Data" class="ddbody_filter_item" ng-hide="item1.IsHidden">
+                        <div class="ddbody_filter_item" ng-class="{'module_filter_item_selected':item.Selection.Name==item1.Name}" ng-click="item1.Data.length>0?OpenSubFilter(item1):selectFilterItem(item,item1)">
+                            <div class="ddbody_filter_sub_item_icon" ng-class="{'ddbody_filter_sub_item_allIndia':$index==0,'ddbody_filter_sub_item_restIndia':$index!=0}"></div>
+                            <div class="ddbody_filter_item_text" ng-attr-title="{{item1.Name}}">{{item1.Name}}</div>
+                            <div class="ddbody_filter_expand_button" ng-if="item1.Data.length>0" ng-class="{'plus_icon':!item1.IsOpen,'minus_icon':item1.IsOpen}" ng-style="{'background-color':(item1.IsOpen?'#CE2E3D':'')}"></div>
+                        </div>
+                        <div ng-repeat="item2 in item1.Data" ng-if="item1.IsOpen" class="ddbody_filter_item" ng-class="{'module_filter_item_selected':item1.Selection.Name==item2.Name}" ng-click="selectSubFilterItem(item,item1,item2)" ng-hide="item2.IsHidden">
+                            <div class="ddbody_filter_sub_item_icon ddbody_filter_sub_item_radio" ng-class="{'ddbody_filter_sub_item_radio_selected':item.Selection.Name==item1.Name && item.Selection.Selection.Name==item2.Name}"></div>
+                            <div class="ddbody_filter_item_text" ng-attr-title="{{item2.Name}}">{{item2.Name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="leafNodePopup" ng-show="show_OrgPopup==true" ng-style="{'top': leafPopY,'left': leafPopX}">
+            <div ng-if="(eachitem.name!='Brands' || showBrandPopup==true)" class="lfNPeachbox" id="{{eachitem.id}}" menudisabled="{{eachitem.disable}}" ng-class="{'menudesabled':eachitem.disable}" ng-repeat="eachitem in OrgPopup" ng-click="leafPopitemclick($event,eachitem.id)">
+                <div class="lfNPeachboxIco"style="background-image:url('../Content/Images/Deepdive/{{eachitem.img}}')" ></div>
+                <div class="lfNPeachboxTxt">{{eachitem.name}}</div>
+            </div>
+        </div>
+        <div class="deepdive_body_output_container" ng-show="orgShow ==true">
+            <div class="backButton" ng-show="showbackbtn" ng-click="OneStepBack()"></div>
+            <div class="RootNodeNcon">
+                <div class="rootNodemidLine">
+                    <div class="rootnoteBox">                    
+                    <div class="orgRootName" title="{{orgRootName}}">{{orgRootName}}</div><div class="orgRootValue {{checkVolume(orgRootValue)}}" title="{{orgRoottooltip}}">{{orgRootValue}}</div></div>
+                </div>
+            </div>
+            <div id="orgChart" ng-show="orgleafShow != false"></div>
+ 
+        </div>
+        <div class="datanotavailable" ng-show="orgShow == false">Data Not Aailable</div>
+    </div>
+</div>

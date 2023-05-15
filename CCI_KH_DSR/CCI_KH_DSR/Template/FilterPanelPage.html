@@ -1,0 +1,39 @@
+﻿<div ng-controller="FilterPanelController" class="filter_container">
+    <div class="filter_panel_container">
+        <div class="module_filter_container">            
+            <div class="goto_scatterplot_icon" ng-show="getSelectedModule().ModuleName=='KV1' && false" ng-click="clickModule(getModuleByModuleName('KV2'))">
+            </div>
+            <div class="selection_summary" ng-if="getSelectedModule().ModuleName=='KV1'"  >
+                <div class="selcsumry_ISWA_cntinr" >
+                    <div class="selcsumry_ISWA" ng-repeat="SSitem in INSWAMenu_SS_INSWA_temp">
+                        <div class="selcsumry_ISWA_hdr">{{SSitem.DisplayName}}&nbsp;:&nbsp;</div>
+                        <div class="selcsumry_ISWA_txt" title={{(SSitem.LastSelected_tm==null)?"All":SSitem.LastSelected_tm}}>{{(SSitem.LastSelected_tm==null)?"All":SSitem.LastSelected_tm}}</div>
+                        <div ng-hide="$last" class="selcsumry_ISWA_hdr">&nbsp;|&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <div ng-class="{'np_bottler_icon':!IsNpBottlerDropdownOpen,'np_bottler_icon_active':IsNpBottlerDropdownOpen}" ng-click="getNpBottler();openCloseFilter();$event.stopPropagation()" ng-show="NPBottlerDaterestriction()" title="Click here for information on Non Reporting Bottlers"></div>
+            <div ng-repeat="item in filterPanel" ng-hide="item.IsHidden" class="module_filter_item_container" ng-style="{'float':(getSelectedModule().ModuleName=='KV1'||getSelectedModule().ModuleName=='TOP10'?'right':'left')}">
+                <div class="module_filter_text">{{item.DispName}}</div>
+                <div class="module_filter_selcontainer" ng-click="clickLayout();openCloseFilter(item);$event.stopPropagation()">
+                    <div class="module_filter_selectedtext_selcontainer" ng-attr-title="{{getFilterPrefix(item.Name)+ item.Selection.DispName}}" >{{ getFilterPrefix(item.Name)+ item.Selection.DispName}}</div>
+                    <div class="module_filter_arrowdown_selcontainer"></div>
+                </div>
+                <div class="module_filter_item_list_container" ng-if="item.IsOpen" ng-click="$event.stopPropagation()">
+                    <div ng-repeat="item1 in item.Data" class="module_filter_item" ng-class="{'module_filter_item_selected':item.Selection.Name==item1.Name}" ng-click="selectFilterItem(item,item1)" ng-hide="item1.IsHidden">
+                        <span class="module_filter_item_text"  ng-attr-title="{{getFilterPrefix(item.Name)+ item1.DispName}}">{{ getFilterPrefix(item.Name)+ item1.DispName}}</span>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="IsNpBottlerDropdownOpen" class="np_bottler_continer" ng-click="$event.stopPropagation()">
+                <div ng-repeat="item in NpBottlerList.data.BottlerName track by $index" class="np_bottler_item">
+                    <div class="np_bottler_item_text" ng-attr-title="{{item}}">{{item}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="output_content">
+        <div class="containerView" ui-view="module-view">
+        </div>
+    </div>
+</div>

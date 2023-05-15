@@ -1,0 +1,1193 @@
+﻿@font-face {
+    font-family: 'Montserrat-Medium';
+    src: url('../Fonts/Montserrat/Montserrat-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat-Bold';
+    src: url('../Fonts/Montserrat/Montserrat-Bold.ttf') format('truetype');
+}
+
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+
+    .row-name-icon {
+        height: 1.3vh;
+    }
+}
+
+.container-module {
+    height: 88%;
+    width: 100%;
+}
+
+.filter-panel-container {
+    position: relative;
+    height: 6%;
+    width: 100%;
+    background-color: #303030;
+}
+
+.output-container {
+    position: relative;
+    height: 94%;
+    width: 100%;
+    background-color: #F3F4F8;
+    padding: 0.5%;
+}
+
+.time-period-container {
+    height: 100%;
+    width: 45%;
+    position: absolute;
+    color: #FFFFFF;
+    left: 1%;
+    padding: 0.5%;
+    cursor: default;
+}
+
+.demographic-container {
+    position: relative;
+    width: 30%;
+    height: 100%;
+    color: #fff;
+    display: table;
+    float: right;
+}
+
+.selection-name {
+    font-weight: bold;
+    position: absolute;
+    font-size: 1em;
+    top: 20%;
+}
+
+.dem-selection-name {
+    font-weight: bold;
+    text-align: right;
+    vertical-align: middle;
+    display: table-cell;
+    width: 45%;
+}
+
+.time-period-selection {
+    height: 100%;
+    width: 81%;
+    float: right;
+    padding: 0.4%;
+}
+
+.time-period-options {
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 20%;
+}
+
+.demographic-options {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    z-index: 3;
+    width: 45%;
+    height: 60%;
+    color: #3d3d3d;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 3px 1px #888;
+    cursor: pointer;
+}
+
+.selected-text-container {
+    position: relative;
+    width: 80%;
+    height: 100%;
+    text-align: left;
+    padding: 1%;
+    padding-left: 10%;
+    float: left;
+    font-size: 2.1vh;
+    line-height: 3vh;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.arrowdown-container {
+    position: relative;
+    width: 15%;
+    height: 100%;
+    text-align: left;
+    float: right;
+    background: url('../Images/KH_Sprite_dropdown down.svg') no-repeat;
+    background-color: #fff;
+    background-size: 35% 35%;
+    background-position: center;
+    cursor: pointer;
+}
+
+.first-level-container {
+    position: absolute;
+    min-height: 5vh;
+    width: 45%;
+    left: 50%;
+    max-height: 33vh;
+    top: 85%;
+    z-index: 9;
+    overflow-y: auto;
+    padding: 1%;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 3px 1px #888;
+    display: none;
+}
+
+.second-level-container {
+    position: absolute;
+    min-height: 5vh;
+    width: 45%;
+    left: 5%;
+    max-height: 33vh;
+    top: 100%;
+    z-index: 9;
+    overflow-y: auto;
+    padding: 1%;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 3px 1px #888;
+    display: none;
+}
+
+.filter-item {
+    margin-top: 1vh;
+    position: relative;
+    width: 100%;
+    float: left;
+    height: 4vh;
+    font-size: 2.1vh;
+    color: #3d3d3d;
+    padding: .5%;
+    border-left: 2px solid #ce2e3d;
+    border-bottom: 1px solid rgba(61,61,61,.04);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.filter-item:hover {
+    background-color: #ce2e3d;
+    color: #fff;
+    cursor: pointer;
+}
+
+.filter-item-selected {
+    background-color: #ce2e3d;
+    color: #fff;
+}
+
+.filter-item-text {
+    position: relative;
+    width: 100%;
+    text-align: left;
+    padding-left: 5%;
+}
+
+.qtr-selection-block {
+    position: absolute;
+    top: 25%;
+    height: 75%;
+    width: 95%;
+}
+
+.qtr-selection {
+    position: absolute;
+    height: 25%;
+    width: 100%;
+    left: 2%;
+    cursor: pointer;
+}
+
+.qtr-selection.selected {
+    border-radius: 6px;
+    cursor: pointer;
+    background-image: linear-gradient(white,rgb(255, 180, 180));
+    border: 1px solid rgb(248, 161, 161);
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 85px;
+    height: 27px;
+    padding: 2px;
+    font: 10px Montserrat-Bold;
+    background: white;
+    border: 0px;
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 1002;
+}
+
+.radio-button-container {
+    position: absolute;
+    top: 10%;
+    height: 100%;
+    width: 20%;
+}
+
+.radio-button-icon {
+    position: absolute;
+    top: 5%;
+    background: url('../Images/KH_Sprite_radio button.svg') no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    height: 2.1vh;
+    width: 1.1vw;
+    background-position: center;
+}
+
+.radio-button-icon.selected {
+    background: url('../Images/KH_Sprite_radio button active.svg') no-repeat;
+    background-size: contain;
+    height: 2.1vh;
+    width: 1.1vw;
+    background-position: center;
+}
+
+.time-period-name {
+    position: absolute;
+    left: 25%;
+    color: #AFAFAF;
+    font-size: 0.9em;
+}
+
+.time-period-name.selected {
+    font-family: Montserrat-Bold;
+    color: #FFFFFF;
+}
+
+.output-section-1 {
+    position: absolute;
+    height: 99%;
+    width: 25%;
+    padding: 0.4%;
+}
+
+.output-section-2 {
+    position: absolute;
+    height: 99%;
+    width: 74%;
+    left: 25.5%;
+    padding: 0.4%;
+}
+
+.data-widget {
+    position: absolute;
+}
+
+.data-widget-header {
+    position: relative;
+    margin: auto;
+    top: -0.4vh;
+    background: url('../Images/HHPanel_dashboard_Sprite_Btn_bg.svg') no-repeat;
+    background-size: cover;
+    height: 5vh;
+    width: 18vw;
+    z-index: 1;
+    cursor: default;
+    background-position: center;
+}
+
+.data-widget-header-text {
+    position: relative;
+    top: 0.8vh;
+    text-align: center;
+    font-family: Montserrat-Bold;
+    font-size: 0.9em;
+}
+
+.data-widget-content {
+    position: absolute;
+    background: rgba(253, 253, 254, 0.85);
+    border-top: 1px solid rgba(206, 50, 50, 1);
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    top: 1.75vh;
+    padding: 0.5em;
+    padding-top: 2.5vh;
+    overflow: hidden;
+}
+
+#mapWidget {
+    width: 97%;
+    height: 48%;
+}
+
+#ErrorPopup {
+    position: absolute;
+    height: 25%;
+    width: 50%;
+    top: 40%;
+    left: 20%;
+    z-index: 0;
+    display: none;
+}
+
+#ErrorBodyText {
+    position: absolute;
+    font-family: Montserrat;
+    font-size: 1em;
+    color: black;
+    text-align: center;
+    padding: 8%;
+    font-weight: bold;
+}
+
+#cheatDiv {
+    position: absolute;
+    top: 0;
+    height: 5%;
+    width: 5%;
+    background: white;
+}
+
+#kpiSnapshotWidget {
+    width: 97%;
+    height: 49%;
+    top: 50%;
+}
+
+#scorecardWidget {
+    height: 35%;
+    width: 99%;
+}
+
+#brandPerformanceWidget {
+    top: 37%;
+    left: 34%;
+    height: 62%;
+    width: 33%;
+}
+
+#brandPerformanceWidget .widget-values {
+    height: 4.2vh;
+}
+
+#categoryPerformanceWidget {
+    top: 68.5%;
+    height: 30.5%;
+    width: 32.5%;
+}
+
+#flavourPerformanceWidget {
+    top: 37%;
+    left: 67.5%;
+    height: 30.5%;
+    width: 32.5%;
+}
+
+#companyPerformanceWidget {
+    top: 37%;
+    height: 30.5%;
+    width: 32.5%;
+}
+
+#packPerformanceWidget {
+    top: 68.5%;
+    left: 67.5%;
+    height: 30.5%;
+    width: 32.5%;
+}
+
+.expand-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 12%;
+    z-index: 2;
+}
+
+.expand-button-icon {
+    background: url('../Images/KH_Sprite_expand.svg') no-repeat;
+    background-size: cover;
+    height: 4vh;
+    width: 2vw;
+    cursor: pointer;
+}
+
+    .expand-button-icon:hover {
+        background: url('../Images/KH_Sprite_expand_hover.svg') no-repeat;
+        background-size: cover;
+        height: 4vh;
+        width: 2vw;
+    }
+
+#graphContainer {
+    position: absolute;
+    top: 5%;
+    width: 99%;
+    height: 80%;
+}
+
+#legendContainer {
+    position: relative;
+    top: 85%;
+    width: 24%;
+    height: 15%;
+    margin: auto;
+}
+
+.legend-div {
+    float: left;
+    width: 50%;
+}
+
+.legend-text {
+    font-size: 0.8em;
+}
+
+.legend-icon {
+    height: 2vh;
+    width: 2vh;
+    float: left;
+    margin-right: 5%;
+}
+
+#previousYear {
+    background: url('../Images/HHPanel_dashboard_Sprite_Shape_orange.svg');
+    background-size: cover;
+}
+
+#currentYear {
+    background: url('../Images/HHPanel_dashboard_Sprite_Red_point.svg');
+    background-size: cover;
+}
+
+.data-widget-content-header {
+    height: 6%;
+    width: 100%;
+}
+
+.data-widget-content-values {
+    margin-top: 2%;
+    height: auto;
+    width: 100%;
+}
+
+.data-name-1 {
+    position: absolute;
+    font-family: Montserrat-Bold;
+    font-size: 0.8em;
+}
+
+.data-name-2 {
+    position: absolute;
+    font-family: Montserrat-Bold;
+    font-size: 0.8em;
+    right: 15%;
+}
+
+.data-name-3 {
+    position: absolute;
+    font-family: Montserrat-Bold;
+    font-size: 0.8em;
+    right: 2%;
+}
+
+.widget-values {
+    position: relative;
+    height: 3.7vh;
+    width: 100%;
+    padding-top: 2%;
+    margin-left: -2%;
+}
+
+.widget-values.selected-row, .snapshot-widget.selected {
+    background: linear-gradient(90deg,rgb(247, 193, 193),rgba(255,255,255,1));
+}
+
+.widget-values.selected-row:before, .snapshot-widget.selected:before {
+    content: "";
+    background-color: red;
+    display: block;
+    width: 3px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.widget-values.collapsible {
+    float: left;
+}
+
+.collapsible-widget {
+    height: 0;
+    overflow: hidden;
+    transition: height 200ms;
+}
+
+.collapsible-widget-rows {
+    height: auto;
+    overflow: hidden;
+}
+
+#categoryPerformanceWidget .widget-values, #flavourPerformanceWidget .widget-values, #companyPerformanceWidget .widget-values, #packPerformanceWidget .widget-values {
+    top: 5%;
+}
+
+#categoryPerformanceWidget .widget-row-name {
+    width: 42%;
+}
+
+#packPerformanceWidget .widget-row-name {
+    width: 41%;
+}
+
+#flavourPerformanceWidget .widget-row-name, #packPerformanceWidget .widget-row-name {
+    cursor: default;
+}
+
+.row-name-icon {
+    position: relative;
+    background: url('../Images/KH_Sprite_accordion_plus.svg');
+    background-size: cover;
+    cursor: pointer;
+    height: 2.1vh;
+    width: 1.1vw;
+    float: left;
+    background-position: center;
+    margin-right: 8%;
+}
+
+    .row-name-icon.selected {
+        background: url('../Images/KH_Sprite_accordion_minus.svg');
+        background-size: cover;
+        cursor: pointer;
+        height: 2.1vh;
+        width: 1.1vw;
+    }
+
+.widget-row-name {
+    height: 100%;
+    width: 34%;
+    font-size: 0.8em;
+    float: left;
+    cursor: pointer;
+    margin-left: 3%;
+}
+
+.collapsible-widget .widget-row-name {
+    margin-left: 5%;
+}
+
+.widget-graph {
+    position: absolute;
+    left: 30%;
+    top: 0%;
+    height: 100%;
+    width: 40%;
+    margin-left: 3%;
+}
+
+.widget-measure {
+    position: absolute;
+    left: 70%;
+    top: 0;
+    padding-top: 2%;
+    margin-left: 3%;
+    height: 100%;
+    width: 16%;
+    text-align: center;
+    font-size: 0.8em;
+    cursor: default;
+}
+
+.widget-change {
+    position: absolute;
+    top: 0;
+    margin-left: 2%;
+    left: 85%;
+    padding-top: 2%;
+    height: 100%;
+    width: 15%;
+    font-size: 0.8em;
+    cursor: default;
+}
+
+.widget-change-text {
+    float: left;
+    margin-left: 20%;
+}
+
+.widget-change-text#absolute {
+    float: left;
+    margin-left: 18%;
+    font-size: 0.9em;
+}
+
+.widget-change-icon {
+    position: relative;
+    background-size: cover;
+    top: 20%;
+    height: 0.8vh;
+    width: 0.8vw;
+    float: right;
+    background-position: center;
+}
+
+.widget-change-icon.positive {
+    background-image: url('../Images/KH_Sprite_significance green.svg');
+}
+
+.widget-change-icon.negative {
+    background-image: url('../Images/KH_Sprite_significance red.svg');
+}
+
+.positive-graph, .negative-graph {
+    height: 100%;
+    width: 50%;
+    float: left;
+}
+
+.negative-graph {
+    box-shadow: 4px 0px 6px -6px black;
+}
+
+.positive-graph .graph-icon {
+    position: relative;
+    top: 20%;
+    background: url('../Images/HHPanel_dashboard_Sprite_Green_point.svg');
+    background-size: cover;
+    height: 2vh;
+    width: 1vw;
+    float: left;
+    background-position: center;
+}
+
+.negative-graph .graph-icon {
+    position: relative;
+    top: 20%;
+    background: url('../Images/HHPanel_dashboard_Sprite_Red_point.svg');
+    background-size: cover;
+    height: 2vh;
+    width: 1vw;
+    float: right;
+    background-position: center;
+}
+
+.negative-graph .graph-bar {
+    position: relative;
+    top: 25%;
+    background: url('../Images/KH_Sprite_chart_negative.svg');
+    background-size: cover;
+    height: 2vh;
+    float: right;
+    background-position: center;
+}
+
+.positive-graph .graph-bar {
+    position: relative;
+    top: 25%;
+    background: url('../Images/KH_Sprite_chart_positive.svg');
+    background-size: cover;
+    height: 2vh;
+    float: right;
+    background-position: center;
+    float: left;
+}
+
+.snapshot-widget {
+    position: relative;
+    height: 25%;
+    width: 96%;
+    box-shadow: 0px 5px 4px -7px black;
+    cursor: pointer;
+}
+
+.snapshot-widget-icon {
+    position: absolute;
+    height: 50%;
+    width: 35%;
+    left: 12%;
+    top: 20%;
+}
+
+#penetrationWidgetIcon {
+    background: url('../Images/KH_Login Landing_icon_penetration_black.svg') no-repeat;
+}
+
+#frequencyWidgetIcon {
+    background: url('../Images/KH_Login Landing_icon_frequency_black.svg') no-repeat;
+}
+
+#absoluteWidgetIcon {
+    background: url('../Images/KH_Login Landing_icon_Absolute HHs_black.svg') no-repeat;
+}
+
+#volumeWidgetIcon {
+    background: url('../Images/KH_Login Landing_icon_Volume-Trip_black.svg') no-repeat;
+}
+
+#penetrationWidgetIcon.selected {
+    background: url('../Images/KH_Login Landing_icon_penetration_red.svg') no-repeat;
+}
+
+#frequencyWidgetIcon.selected {
+    background: url('../Images/KH_Login Landing_icon_frequency_red.svg') no-repeat;
+}
+
+#absoluteWidgetIcon.selected {
+    background: url('../Images/KH_Login Landing_icon_Absolute HHs_red.svg') no-repeat;
+}
+
+#volumeWidgetIcon.selected {
+    background: url('../Images/KH_Login Landing_icon_Volume-Trip_red.svg') no-repeat;
+}
+
+.snapshot-widget-header {
+    position: absolute;
+    top: 50%;
+    height: 50%;
+    width: 35%;
+    padding: 4%;
+    /*padding-top: 12%;*/
+    text-align: center;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.snapshot-widget-graph {
+    position: absolute;
+    left: 35%;
+    height: 100%;
+    width: 65%;
+    padding: 3%;
+}
+
+/*#frequencyWidget {
+    top: 37%;
+}
+
+#consumptionWidget {
+    top: 68%;
+}*/
+
+#consumptionGraphImage {
+    position: absolute;
+    background: url('../Images/KH_Sprite_barchart2 bg.svg') no-repeat;
+    background-position: center;
+    background-size: contain;
+    top: 10%;
+    height: 90%;
+    width: 90%;
+    z-index: 1;
+}
+
+#consumptionWidgetText {
+    position: absolute;
+    width: 30%;
+    height: 20%;
+    top: 70%;
+    font-size: 0.8em;
+}
+
+#penetrationWidgetText {
+    position: absolute;
+    left: 43%;
+    top: 54%;
+    height: 45%;
+    width: 20%;
+}
+
+#frequencyGraphImage, #volumeGraphImage {
+    position: absolute;
+    background: url('../Images/KH_Sprite_barchart1 bg.svg') no-repeat;
+    background-position: center;
+    background-size: contain;
+    top: 0;
+    height: 95%;
+    width: 75%;
+    z-index: 1;
+    left: 15%;
+}
+
+#frequencyWidgetText, #volumeWidgetText {
+    position: absolute;
+    left: 45%;
+    top: 60%;
+    height: 50%;
+    width: 20%;
+}
+
+#absoluteWidgetText {
+    position: absolute;
+    left: 30%;
+    top: 20%;
+    height: 90%;
+    width: 50%;
+}
+
+#penetrationGraphImage {
+    position: absolute;
+    background: url('../Images/KH_Sprite_Pi chart bg.svg') no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 85%;
+    width: 95%;
+}
+
+#frequencyWidgetChange, .widget-value, #penetrationWidgetChange, #absoluteWidgetChange, #volumeWidgetChange {
+    width: 100%;
+    height: 35%;
+    text-align: center;
+    font-size: 0.8em;
+    font-family: Montserrat-Bold;
+}
+
+.change-value {
+    height: 100%;
+    width: 95%;
+    font-size: 0.8em;
+    margin-top: 5%;
+    float: left;
+}
+
+.change-icon.positive {
+    background: url('../Images/KH_Sprite_significance green.svg') no-repeat;
+    background-size: contain;
+    position: absolute;
+    top: 50%;
+    height: 0.5em;
+    width: 0.8em;
+    left: 75%;
+}
+
+.change-icon.negative {
+    background: url('../Images/KH_Sprite_significance red.svg') no-repeat;
+    background-size: contain;
+    position: absolute;
+    top: 50%;
+    height: 0.5em;
+    width: 0.8em;
+    left: 75%;
+}
+
+#frequencyGraphColour, #volumeGraphColour {
+    background-color: #FFAC33;
+    height: 15%;
+    position: absolute;
+    top: 40%;
+    left: 18%;
+}
+
+#consumptionGraphColour {
+    background-color: #a56061;
+    height: 5%;
+    position: absolute;
+    top: 53%;
+    left: 5%;
+}
+
+#penetrationGraph {
+    position: absolute;
+    top: 0.6vh;
+    height: 7vh;
+    width: 9vw;
+    left: 20%;
+}
+
+#mapContainer {
+    position: absolute;
+    width: 95%;
+    height: 90%;
+    top: 8%;
+}
+
+.map-directions {
+    position: absolute;
+    width: 20%;
+    height: 15%;
+    cursor: default;
+}
+
+#northDirection {
+    left: 45%;
+}
+
+.zoom-map-div #northDirection {
+    top: 10%;
+}
+
+#southDirection {
+    top: 85%;
+    left: 45%;
+}
+
+#eastDirection {
+    top: 45%;
+    left: 80%;
+}
+
+#westDirection {
+    top: 45%;
+}
+
+.direction-text {
+    position: absolute;
+    height: 50%;
+    width: 100%;
+    text-align: center;
+    font-family: Montserrat-Bold;
+    font-size: 0.8em;
+}
+
+.direction-value {
+    position: absolute;
+    top: 50%;
+    height: 50%;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+.map-toggle {
+    position: absolute;
+    width: 30%;
+    height: 10%;
+    top: 10%;
+    left: 70%;
+}
+
+.toggle-name {
+    position: absolute;
+    width: 33%;
+    height: 100%;
+    font-size: 0.8em;
+    text-align: center;
+    top: 20%;
+}
+
+.toggle-name.selected {
+    font-family: Montserrat-Bold;
+}
+
+.toggle-button {
+    position: absolute;
+    top: 25%;
+    left: 36%;
+    background: url('../Images/KH_Sprite_toggle left.svg') no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    height: 2vh;
+    width: 2vw;
+    background-position: center;
+}
+
+.toggle-button.selected {
+    background: url('../Images/KH_Sprite_toggle right.svg') no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    height: 2vh;
+    width: 2vw;
+}
+
+.collapsible-widget .row-name-text, .row-name-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.zoom-map-div, #zoomWidgetContainer {
+    position: fixed;
+    height: 85%;
+    width: 40%;
+    background: white;
+    z-index: -1;
+    top: 10%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    font-size: 1.5em;
+}
+
+#zoomWidgetContainer {
+    display: none;
+    z-index: 6;
+}
+
+#zoomMapContainer {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 15%;
+    left: 13%;
+}
+
+.zoom-header {
+    position: absolute;
+    width: 100%;
+    height: 7%;
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
+    background-color: #E8E9EC;
+}
+
+.zoom-container {
+    position: absolute;
+    width: 100%;
+    height: 96.6%;
+    top: 5%;
+}
+
+.zoom-header-text {
+    position: absolute;
+    top: 25%;
+    left: 30%;
+    font-weight: bolder;
+    font-size: 0.8em;
+}
+
+.zoom-close {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: url('../Images/KH_Sprite_popup close.svg') no-repeat 0 0;
+    width: 3vw;
+    height: 6vh;
+    cursor: pointer;
+}
+
+.calendar-container {
+    position: fixed;
+    height: 32%;
+    width: 25%;
+    background: white;
+    z-index: 6;
+    top: 6.5%;
+    right: 5%;
+    margin: 0 auto;
+    font-size: 1.5em;
+    padding: 1%;
+    padding-left: 0;
+    display: none;
+}
+
+.year-dropdown {
+    position: relative;
+    left: 5%;
+    font-size: 0.8em;
+    font-family: Montserrat-Bold
+}
+
+#dropdown {
+    width: 5vw;
+    box-shadow: 0px 1px 8px 1px silver;
+    display: inline-block;
+    background-color: white;
+    outline: none;
+    font-family: Montserrat;
+    border-color: white;
+    margin-left: 3%;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
+.month-row {
+    position: absolute;
+    left: 10%;
+    width: 90%;
+    height: 25%;
+    font-size: 0.8em;
+}
+
+.quarter-name {
+    position: absolute;
+    width: 100%;
+    height: 25%;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.quarter-inner-div {
+    width: 65%;
+    height: 75%;
+    text-align: center;
+    margin: auto;
+    margin-top: 10%;
+}
+
+.quarter-inner-div.selected {
+    background-color: #CE3233;
+    border-radius: 4px;
+    color: white;
+}
+
+.month-name {
+    width: 25%;
+    height: 100%;
+    float: left;
+    cursor: pointer;
+}
+
+.month-name.selected {
+    background-color: #EED8DB;
+    border: 1px solid rgb(248, 161, 161);
+    border-radius: 4px;
+}
+
+.month-name-value {
+    width: 85%;
+    height: 75%;
+    text-align: center;
+    margin: auto;
+    margin-top: 7%;
+}
+
+.month-name:hover {
+    background-color: #EED8DB;
+}
+
+.month-name-value.selected {
+    background-color: #CE3233;
+    border-radius: 4px;
+    color: white;
+}
+
+.qtr-block {
+    position: absolute;
+    top: 25%;
+    height: 75%;
+    width: 20%;
+    float: left;
+    font-size: 0.9em;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.month-block {
+    position: absolute;
+    top: 25%;
+    height: 75%;
+    width: 80%;
+    left: 20%;
+    z-index: 1;
+}
+
+.data-widget-content-data-unavailable {
+    height: 30%;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    font-size: 1.3em;
+    display: none;
+}
+
+.disabled {
+    pointer-events: none;
+    color: #7a7a7a;
+}

@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Dashboard</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Montserrat.css" rel="stylesheet" />
+    <link href="~/Content/CSS/layout.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/D3/d3.v4.min.js"></script>
+    <script src="~/Scripts/D3/topojson.min.js"></script>
+    <script src="~/Scripts/highcharts.js"></script>
+    <script src="~/Scripts/Controller/DashboardController.js"></script>
+    <link rel="shortcut icon" href="/Content/Images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+    <div class="container-view">
+        <div class="container-header">
+            <div class="header-logo-container">
+                <div class="logo-icon"></div>
+            </div>
+            <div class="header-module-container">
+                <div class="module-container">DASHBOARD</div>
+            </div>
+            <div class="header-icons">
+                <div class="logout-icon" title="Logout" onclick="logoutDashboard()"></div>
+                <div class="setting-icon" title="Settings"></div>
+                <div class="home-icon" title="Home" onclick="window.open('@System.Configuration.ConfigurationManager.AppSettings["HomeButtonUrl"].ToString()','_self')"></div>
+                <div class="calendar-icon" title="Calendar" onclick="calendar()"></div>
+            </div>
+        </div>
+        @RenderBody()
+        <div class="container-footer">
+            <div class="footer-source">
+                <span id="sourceName">Source: HHP as on </span>
+                <span id="dataDate"></span>
+            </div>
+            <div class="footer-absolute-message">
+                <span id="absoluteMessage"></span>
+            </div>
+            <div class="footer-significance">
+                <div class="significance-div">
+                    <div id="highSignificanceIcon"></div>
+                    <span id="highSignificanceText">Growth</span>
+                </div>
+                <div class="significance-div">
+                    <div id="lowSignificanceIcon"></div>
+                    <span id="lowSignificanceText">Decline</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="Translucent" class="TranslucentDiv" style="display: none;"></div>
+    <div id="Loader" style="display: none;">
+        <img src="/Content/Images/Coke Knowledge Hub Loader.gif">
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

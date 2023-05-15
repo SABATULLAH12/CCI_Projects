@@ -1,0 +1,23 @@
+﻿<div class="master_layout" ng-controller="LayoutController" ng-cloak>
+    <div class="containerView" ui-view="container-view"></div>
+    <div id="loader_container" ng-show="showLoader" ng-click="$event.stopPropagation()">
+        <img src="../Content/Images/Coke Knowledge Hub Loader.gif" id="loader_image" class="center" />
+    </div>
+    <div id="alert_background" ng-show="alert.show" class="ng-hide" ng-click="$event.stopPropagation();" ng-style="alert.style">
+        <div class="alert_container center" ng-style="{width:alert.htmlText_show ? '35%':'27%'}" ng-click="$event.stopPropagation();">
+            <div class="alert_header">
+                <div class="alert_title" ng-attr-title="{{alert.header.toUpperCase()}}">{{alert.header}}</div>
+                <div class="alert_close" title="CLOSE" ng-click="$event.stopPropagation();alert.onClose();" ></div>
+            </div>
+            <div ng-if="!alert.htmlText_show" class="alert_body"><span ng-bind="alert.message"></span></div>
+            <div ng-if="alert.htmlText_show" ng-bind-html="alert.message" class="alert_body"></div>
+        </div>
+    </div>
+</div>
+
+<div class="landscape_restiction"  id="landscape_restiction_message">
+    <div class="center">
+        <img src="../Content/Images/rotate.png"/><br/>
+        <span>Please Use Landscape Mode</span>
+    </div>
+</div>

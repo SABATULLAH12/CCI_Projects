@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AQ.Utilities</name>
+    </assembly>
+    <members>
+        <member name="M:Utils.ContentVersioned(System.String)">
+            <summary>
+            Adds timestamp in the resource URL by picking the last modified date-time of file. So the browser picks the latest file.
+            </summary>
+            <param name="contentRelativeUrl"></param>
+            <returns></returns>
+            
+        </member>
+    </members>
+</doc>

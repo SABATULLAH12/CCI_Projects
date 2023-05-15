@@ -1,0 +1,99 @@
+﻿<div ng-controller="CrossTabController" class="cross_tab_container">
+    <div class="cross_tab_output">
+    </div>
+    <div class="cross_tab_top_panel">
+        <div class="selection_summary" ng-class="{'expanded_selection_summary':IsSelSumExapanded}">
+            Selection Summary: {{getSelectionSummary()}}
+        </div>
+        <div class="selection_summary_button" ng-attr-title="{{IsSelSumExapanded?'HIDE SELECTION SUMMARY':'SHOW SELECTION SUMMARY'}}" ng-class="{'sel_arrow_up':IsSelSumExapanded,'sel_arrow_down':!IsSelSumExapanded}" ng-click="expandSelSummary()"></div>
+        <div class="left_panel_open_button" ng-attr-title="{{IsLeftPanelExpanded?'HIDE FILTER PANEL':'SHOW FILTER PANEL'}}" ng-class="{'panel_open_button':IsLeftPanelExpanded,'panel_close_button':!IsLeftPanelExpanded}" ng-click="expandLeftPanel()"></div>
+    </div>
+    <div class="left_panel_container animate-show-hide" ng-show="IsLeftPanelExpanded">
+        <div class="left_panel_parent_container">
+            <div class="panel_row_title">
+                <div class="panel_row_text_title">
+                    table structure
+                </div>
+            </div>
+            <div class="panel_row" ng-repeat="item in leftPanel | filter :{'Under' : 'Table Structure'}" ng-hide="{{item.IsHidden}}" ng-class="['module_'+item.Name,{'open':item.IsOpen}]" ng-click="openModuleLeftPanel(item,leftPanel)">
+                <div class="panel_row_image"></div>
+                <div class="panel_row_text_container">
+                    <div class="panel_row_text_head" ng-attr-title="{{item.DispName}}">
+                        {{item.DispName}}
+                    </div>
+                    <div class="panel_row_text_selection" ng-attr-title="{{GetSelectionText(item)}}">
+                        {{GetSelectionText(item)}}
+                    </div>
+                </div>
+                <div class="panel_row_open_image"></div>
+            </div>
+            <div class="panel_row_title">
+                <div class="panel_row_text_title">
+                    table content
+                </div>
+            </div>
+            <div class="panel_row" ng-repeat="item in leftPanel | filter :{'Under' : 'Table Content'}" ng-hide="{{item.IsHidden}}" ng-class="['module_'+item.Name,{'open':item.IsOpen}]" ng-click="openModuleLeftPanel(item,leftPanel)">
+                <div class="panel_row_image"></div>
+                <div class="panel_row_text_container">
+                    <div class="panel_row_text_head" ng-attr-title="{{item.DispName}}">
+                        {{item.DispName}}
+                    </div>
+                    <div class="panel_row_text_selection" ng-attr-title="{{GetSelectionText(item)}}">
+                       {{GetSelectionText(item)}}
+                    </div>
+                </div>
+                <div class="panel_row_open_image"></div>
+            </div>
+            <div class="left_panel_child_container" ng-repeat="item0 in leftPanel" ng-if="item0.IsOpen">
+                <div class="panel_child_search_bar" ng-if="item0.Data.length>ShowSearchWhenDataMoreThan" ng-init="SearchText.level1Search='';LimitLength =ResetLimitLengthTo">
+                    <div class="search_text_box">
+                        <input class="search_text_input" ng-model="SearchText.level1Search" placeholder="Search"/>
+                    </div>
+                </div>
+                <div class="panel_child_column level1" ng-style="{'height':item0.Data.length>10?'94%':'100%'}">
+                    <div class="panel_child_row" ng-repeat="item1 in item0.Data | filter : {Name : SearchText.level1Search} | limitTo : LimitLength as filteredLevel1" ng-hide="{{item1.IsHidden}}" ng-class="[{'selected_background':item1.IsSelected||item1.IsChildSelected}]" ng-click="IsSelectable(item1)?selectChildPanel(item1,item0):openChildPanel(item1,item0)" ng-attr-title="{{item1.Name}}">
+                        <div class="panel_child_row_radio_container">
+                            <div class="radio_checkbox_image" ng-if="IsSelectable(item1)" ng-class="{'SingleRadioUnSelected':!item0.IsMulti && !item1.IsSelected ,'SingleRadioSelected':!item0.IsMulti && item1.IsSelected ,'MultiRadioUnSelected':item0.IsMulti && !item1.IsSelected ,'MultiRadioSelected':item0.IsMulti  && item1.IsSelected }"></div>
+                        </div>
+                        <div class="panel_child_row_text" ng-style="{'font-weight':item1.IsSelected||item1.IsChildSelected?'bold':'normal'}">{{::item1.Name}}</div>
+                        <div class="panel_child_row_open_image" ng-class="{'panel_child_row_open_selected_image':item1.IsOpen}" ng-show="!IsSelectable(item1)"></div>
+                    </div>
+                    <div class="panel_child_row" ng-style="{'display':(item0.Data | filter : {Name : SearchText.level1Search}).length>LimitLength?'block':'none'}" ng-click="LimitLength = LimitLength+IncreaseLimitBy">
+                        <div class="panel_child_row_radio_container">
+                        </div>
+                        <div class="panel_child_row_text" ng-style="{'color':'blue','text-align': 'center','text-decoration': 'underline'}">Show More</div>
+                    </div>
+                </div>
+                <div class="left_panel_child_container" ng-repeat="item1 in item0.Data" ng-if="item1.Data.length>0 && item1.IsOpen">
+                    <div class="panel_child_search_bar" ng-if="item1.Data.length>ShowSearchWhenDataMoreThan" ng-init="SearchText.level2Search='';LimitLength =ResetLimitLengthTo">
+                        <div class="search_text_box">
+                            <input class="search_text_input" ng-model="SearchText.level2Search" placeholder="Search" />
+                        </div>
+                    </div>
+                    <div class="panel_child_column level2" ng-style="{'height':item1.Data.length>10?'94%':'100%'}">
+                        <div class="panel_child_row" ng-repeat="item2 in item1.Data| filter: {Name : SearchText.level2Search} | limitTo : LimitLength as filteredLevel2" ng-hide="{{item2.IsHidden}}" ng-class="[{'selected_background':item2.IsSelected||item2.IsChildSelected}]" ng-click="IsSelectable(item2)?selectChildPanel(item2,item0):openChildPanel(item2,item1)" ng-attr-title="{{item2.Name}}">
+                            <div class="panel_child_row_radio_container">
+                                <div class="radio_checkbox_image" ng-if="IsSelectable(item2)" ng-class="{'SingleRadioUnSelected':!item0.IsMulti && !item2.IsSelected ,'SingleRadioSelected':!item0.IsMulti && item2.IsSelected ,'MultiRadioUnSelected':item0.IsMulti && !item2.IsSelected ,'MultiRadioSelected':item0.IsMulti  && item2.IsSelected }"></div>
+                            </div>
+                            <div class="panel_child_row_text" ng-style="{'font-weight':item2.IsSelected||item2.IsChildSelected?'bold':'normal'}">{{::item2.Name}}</div>
+                            <div class="panel_child_row_open_image" ng-show="!IsSelectable(item2)" ng-class="{'panel_child_row_open_selected_image':item2.IsOpen}"></div>
+                        </div>
+                        <div class="panel_child_row" ng-style="{'display':(item1.Data | filter : {Name : SearchText.level2Search}).length>LimitLength?'block':'none'}" ng-click="LimitLength = LimitLength+IncreaseLimitBy">
+                            <div class="panel_child_row_radio_container">
+                            </div>
+                            <div class="panel_child_row_text" ng-style="{'color':'blue','text-align': 'center','text-decoration': 'underline'}">Show More</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="left_panel_parent_button_container">
+                <div class="panel_button_container" title="SUBMIT">
+                    <div class="panel_button" ng-click="submitFilter()">submit</div>
+                </div>
+                <div class="panel_button_container" title="CLEAR ALL">
+                    <div class="panel_button" ng-click="clearAll()">clear all</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

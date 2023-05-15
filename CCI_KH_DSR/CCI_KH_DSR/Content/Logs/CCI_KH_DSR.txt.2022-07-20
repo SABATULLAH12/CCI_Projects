@@ -1,0 +1,842 @@
+2022-07-20 13:38:37,955 [1] DEBUG  Application - Application Started
+2022-07-20 13:39:29,329 [12] DEBUG  Application - GetPercentChartChart '
+WITH MEMBER currentdate as "[Period].[Day 445].&[" +format(CDATE("07-19-2022"), "MMM dd yyyy" + "]")
+                                 MEMBER periodname as [Period].[Day 445].currentmember.UNIQUE_NAME
+                                            SELECT {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC MTD % vs PY (CD)],[Measures].[Unit Cases AC WTD % vs PY (CD)],[Measures].[Unit Cases AC % vs PY (CD)] }}  ON ROWS,
+                                {[Ship From].[Business Unit].children*[Period].[Day 445].[Day 445].allmembers
+                                } HAVING(periodname= currentdate)ON COLUMNS
+                                FROM(SELECT {[Ship From].[Business Unit].&[India & Southwest Asia]}ON COLUMNS FROM[Model])WHERE({[Reporting View].[Reporting View].&[Operational View]})'
+2022-07-20 13:39:29,427 [12] DEBUG  Application - getINSWAChartQuery '
+with member currentdate
+                        as
+                        "[Period].[Day 445].&[Jul 19 2022]"
+                        member periodname as
+                        [Period].[Day 445].currentmember.unique_name
+                        SELECT { [Measures].[Unit Cases AC YTD],[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]
+                        }on rows
+                        ,
+                        {[Period].[Day 445].[Day 445].allmembers 
+                        
+                        } 
+                        having(periodname=currentdate)on columns
+                        from [Model]
+                        where ({[Reporting View].[Reporting View].&[Operational View]} )'
+2022-07-20 13:39:29,434 [12] DEBUG  Application - getBLineNBarChart '
+WITH MEMBER CalendarDate As CDATE("07-19-2022")
+                            MEMBER StartDate As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+                            MEMBER EndDate As '[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']')
+                            MEMBER EndDateName As VBA!left(VBA!right('[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']'),12),6)
+                            MEMBER DATENAME As VBA!left([Period].[Day 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),6)
+                            MEMBER CurrentYear As cstr(Year(CalendarDate)-5)
+                            MEMBER YearName As [Period].[Year 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+                            SELECT  {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]}} ON ROWS
+                            ,{[Period].[Day 445].[Day 445].ALLMEMBERS * [Period].[Year 445].[Year 445].allmembers}
+                            HAVING (StartDate<=EndDate and EndDateName=DATENAME and YearName>CurrentYear) 
+                            ON COLUMNS
+                            FROM [Model]
+                            WHERE ({[Reporting View].[Reporting View].&[Operational View]}   )'
+2022-07-20 13:39:58,555 [13] DEBUG  Application - time Taken To open Connection: 8298ms for query:1
+2022-07-20 13:39:58,557 [12] DEBUG  Application - time Taken To open Connection: 8299ms for query:0
+2022-07-20 13:39:58,564 [13] DEBUG  Application - time Taken To run query: 20582ms for query:1
+2022-07-20 13:39:58,577 [12] DEBUG  Application - time Taken To run query: 20582ms for query:0
+2022-07-20 13:39:58,580 [13] DEBUG  Application - time Taken To Close Connection: 220ms for query:1
+2022-07-20 13:39:58,582 [12] DEBUG  Application - time Taken To Close Connection: 222ms for query:0
+2022-07-20 13:40:03,465 [14] DEBUG  Application - time Taken To open Connection: 8393ms for query:2
+2022-07-20 13:40:05,238 [14] DEBUG  Application - time Taken To run query: 25424ms for query:2
+2022-07-20 13:40:05,245 [14] DEBUG  Application - time Taken To Close Connection: 192ms for query:2
+2022-07-20 13:40:06,382 [14] DEBUG  Application - GetRegionData 'WITH MEMBER BUSINESSNAME AS
+            [Ship From].[Business Unit].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER REGIONNAME AS 
+            [Ship From].[L0 - Region].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER BUSINESSID AS
+            [Ship From].[Business Unit].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER REGIONID AS 
+            [Ship From].[L0 - Region].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BOTTLERGROUPID AS 
+            [Ship From].[L0 - Entity].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER ZONEID AS 
+            [Ship From].[L0 - Zone].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BUSHIPID AS 
+            [Ship From].[BU Ship From].CURRENTMEMBER.UNIQUE_NAME
+            SELECT {BUSINESSID,REGIONID,BOTTLERGROUPID,ZONEID,BUSHIPID}ON COLUMNS
+            ,{[Ship From].[Business Unit].ALLMEMBERS * [Ship From].[L0 - Region].[L0 - Region].ALLMEMBERS
+            *[Ship From].[L0 - Entity].[L0 - Entity].ALLMEMBERS * [Ship From].[L0 - Zone].[L0 - Zone].ALLMEMBERS *
+            [Ship From].[BU Ship From].[BU Ship From].ALLMEMBERS}
+            HAVING(BUSINESSNAME='India & Southwest Asia' )ON ROWS
+            FROM [Model]'
+2022-07-20 13:40:06,394 [14] DEBUG  Application - GetBrandData 'WITH MEMBER CATEGORYID AS
+            [Product].[L0 - Category].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BRANDID AS 
+            [Product].[L0 - Brand].CURRENTMEMBER.UNIQUE_NAME
+            SELECT NON EMPTY{[Product].[L0 - Category].CHILDREN * [Product].[L0 - Brand].CHILDREN}
+            HAVING (CATEGORYID<>'[Product].[L0 - Category].&[]' AND CATEGORYID<>'[Product].[L0 - Category].&')
+            ON ROWS
+            ,{CATEGORYID,BRANDID}ON COLUMNS
+            FROM [Model]'
+2022-07-20 13:40:32,826 [12] DEBUG  Application - time Taken To open Connection: 2401ms for query:1
+2022-07-20 13:40:32,854 [12] DEBUG  Application - time Taken To run query: 23390ms for query:1
+2022-07-20 13:40:32,859 [12] DEBUG  Application - time Taken To Close Connection: 633ms for query:1
+2022-07-20 13:40:34,633 [14] DEBUG  Application - time Taken To open Connection: 2397ms for query:0
+2022-07-20 13:40:34,638 [14] DEBUG  Application - time Taken To run query: 25631ms for query:0
+2022-07-20 13:40:34,642 [14] DEBUG  Application - time Taken To Close Connection: 203ms for query:0
+2022-07-20 14:51:07,068 [17] DEBUG  Application - GetPercentChartChart '
+WITH MEMBER currentdate as "[Period].[Day 445].&[" +format(CDATE("07-19-2022"), "MMM dd yyyy" + "]")
+                                 MEMBER periodname as [Period].[Day 445].currentmember.UNIQUE_NAME
+                                            SELECT {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC MTD % vs PY (CD)],[Measures].[Unit Cases AC WTD % vs PY (CD)],[Measures].[Unit Cases AC % vs PY (CD)] }}  ON ROWS,
+                                {[Ship From].[Business Unit].children*[Period].[Day 445].[Day 445].allmembers
+                                } HAVING(periodname= currentdate)ON COLUMNS
+                                FROM(SELECT {[Ship From].[Business Unit].&[India & Southwest Asia]}ON COLUMNS FROM[Model])WHERE({[Reporting View].[Reporting View].&[Operational View]})'
+2022-07-20 14:51:10,729 [17] DEBUG  Application - getINSWAChartQuery '
+with member currentdate
+                        as
+                        "[Period].[Day 445].&[Jul 19 2022]"
+                        member periodname as
+                        [Period].[Day 445].currentmember.unique_name
+                        SELECT { [Measures].[Unit Cases AC YTD],[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]
+                        }on rows
+                        ,
+                        {[Period].[Day 445].[Day 445].allmembers 
+                        
+                        } 
+                        having(periodname=currentdate)on columns
+                        from [Model]
+                        where ({[Reporting View].[Reporting View].&[Operational View]} )'
+2022-07-20 14:51:10,736 [17] DEBUG  Application - getBLineNBarChart '
+WITH MEMBER CalendarDate As CDATE("07-19-2022")
+                            MEMBER StartDate As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+                            MEMBER EndDate As '[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']')
+                            MEMBER EndDateName As VBA!left(VBA!right('[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']'),12),6)
+                            MEMBER DATENAME As VBA!left([Period].[Day 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),6)
+                            MEMBER CurrentYear As cstr(Year(CalendarDate)-5)
+                            MEMBER YearName As [Period].[Year 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+                            SELECT  {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]}} ON ROWS
+                            ,{[Period].[Day 445].[Day 445].ALLMEMBERS * [Period].[Year 445].[Year 445].allmembers}
+                            HAVING (StartDate<=EndDate and EndDateName=DATENAME and YearName>CurrentYear) 
+                            ON COLUMNS
+                            FROM [Model]
+                            WHERE ({[Reporting View].[Reporting View].&[Operational View]}   )'
+2022-07-20 14:51:22,260 [17] DEBUG  Application - time Taken To open Connection: 7896ms for query:0
+2022-07-20 14:51:22,275 [17] DEBUG  Application - time Taken To run query: 3402ms for query:0
+2022-07-20 14:51:22,279 [17] DEBUG  Application - time Taken To Close Connection: 213ms for query:0
+2022-07-20 14:51:22,685 [31] DEBUG  Application - time Taken To open Connection: 7888ms for query:1
+2022-07-20 14:51:22,689 [31] DEBUG  Application - time Taken To run query: 3842ms for query:1
+2022-07-20 14:51:22,696 [31] DEBUG  Application - time Taken To Close Connection: 205ms for query:1
+2022-07-20 14:51:28,945 [44] DEBUG  Application - time Taken To open Connection: 7883ms for query:2
+2022-07-20 14:51:28,948 [44] DEBUG  Application - time Taken To run query: 10094ms for query:2
+2022-07-20 14:51:28,950 [44] DEBUG  Application - time Taken To Close Connection: 219ms for query:2
+2022-07-20 14:51:31,958 [42] DEBUG  Application - GetRegionData 'WITH MEMBER BUSINESSNAME AS
+            [Ship From].[Business Unit].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER REGIONNAME AS 
+            [Ship From].[L0 - Region].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER BUSINESSID AS
+            [Ship From].[Business Unit].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER REGIONID AS 
+            [Ship From].[L0 - Region].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BOTTLERGROUPID AS 
+            [Ship From].[L0 - Entity].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER ZONEID AS 
+            [Ship From].[L0 - Zone].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BUSHIPID AS 
+            [Ship From].[BU Ship From].CURRENTMEMBER.UNIQUE_NAME
+            SELECT {BUSINESSID,REGIONID,BOTTLERGROUPID,ZONEID,BUSHIPID}ON COLUMNS
+            ,{[Ship From].[Business Unit].ALLMEMBERS * [Ship From].[L0 - Region].[L0 - Region].ALLMEMBERS
+            *[Ship From].[L0 - Entity].[L0 - Entity].ALLMEMBERS * [Ship From].[L0 - Zone].[L0 - Zone].ALLMEMBERS *
+            [Ship From].[BU Ship From].[BU Ship From].ALLMEMBERS}
+            HAVING(BUSINESSNAME='India & Southwest Asia' )ON ROWS
+            FROM [Model]'
+2022-07-20 14:51:31,963 [42] DEBUG  Application - GetBrandData 'WITH MEMBER CATEGORYID AS
+            [Product].[L0 - Category].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BRANDID AS 
+            [Product].[L0 - Brand].CURRENTMEMBER.UNIQUE_NAME
+            SELECT NON EMPTY{[Product].[L0 - Category].CHILDREN * [Product].[L0 - Brand].CHILDREN}
+            HAVING (CATEGORYID<>'[Product].[L0 - Category].&[]' AND CATEGORYID<>'[Product].[L0 - Category].&')
+            ON ROWS
+            ,{CATEGORYID,BRANDID}ON COLUMNS
+            FROM [Model]'
+2022-07-20 14:51:38,885 [41] DEBUG  Application - time Taken To open Connection: 3240ms for query:1
+2022-07-20 14:51:38,888 [41] DEBUG  Application - time Taken To run query: 3467ms for query:1
+2022-07-20 14:51:38,890 [41] DEBUG  Application - time Taken To Close Connection: 211ms for query:1
+2022-07-20 14:51:41,707 [42] DEBUG  Application - time Taken To open Connection: 4434ms for query:0
+2022-07-20 14:51:41,710 [42] DEBUG  Application - time Taken To run query: 5068ms for query:0
+2022-07-20 14:51:41,712 [42] DEBUG  Application - time Taken To Close Connection: 238ms for query:0
+2022-07-20 14:51:56,441 [38] DEBUG  Application - GetPercentChartChart '
+WITH MEMBER currentdate as "[Period].[Day 445].&[" +format(CDATE("07-19-2022"), "MMM dd yyyy" + "]")
+                                 MEMBER periodname as [Period].[Day 445].currentmember.UNIQUE_NAME
+                                            SELECT {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC MTD % vs PY (CD)],[Measures].[Unit Cases AC WTD % vs PY (CD)],[Measures].[Unit Cases AC % vs PY (CD)] }}  ON ROWS,
+                                {[Ship From].[Business Unit].children*[Period].[Day 445].[Day 445].allmembers
+                                } HAVING(periodname= currentdate)ON COLUMNS
+                                FROM(SELECT {[Ship From].[Business Unit].&[India & Southwest Asia]}ON COLUMNS FROM[Model])WHERE({[Reporting View].[Reporting View].&[Operational View]})'
+2022-07-20 14:51:56,444 [38] DEBUG  Application - getINSWAChartQuery '
+with member currentdate
+                        as
+                        "[Period].[Day 445].&[Jul 19 2022]"
+                        member periodname as
+                        [Period].[Day 445].currentmember.unique_name
+                        SELECT { [Measures].[Unit Cases AC YTD],[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]
+                        }on rows
+                        ,
+                        {[Period].[Day 445].[Day 445].allmembers 
+                        
+                        } 
+                        having(periodname=currentdate)on columns
+                        from [Model]
+                        where ({[Reporting View].[Reporting View].&[Operational View]} )'
+2022-07-20 14:51:56,447 [38] DEBUG  Application - getBLineNBarChart '
+WITH MEMBER CalendarDate As CDATE("07-19-2022")
+                            MEMBER StartDate As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+                            MEMBER EndDate As '[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']')
+                            MEMBER EndDateName As VBA!left(VBA!right('[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']'),12),6)
+                            MEMBER DATENAME As VBA!left([Period].[Day 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),6)
+                            MEMBER CurrentYear As cstr(Year(CalendarDate)-5)
+                            MEMBER YearName As [Period].[Year 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+                            SELECT  {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]}} ON ROWS
+                            ,{[Period].[Day 445].[Day 445].ALLMEMBERS * [Period].[Year 445].[Year 445].allmembers}
+                            HAVING (StartDate<=EndDate and EndDateName=DATENAME and YearName>CurrentYear) 
+                            ON COLUMNS
+                            FROM [Model]
+                            WHERE ({[Reporting View].[Reporting View].&[Operational View]}   )'
+2022-07-20 14:52:05,608 [31] DEBUG  Application - time Taken To open Connection: 4051ms for query:0
+2022-07-20 14:52:05,610 [31] DEBUG  Application - time Taken To run query: 2817ms for query:0
+2022-07-20 14:52:05,612 [31] DEBUG  Application - time Taken To Close Connection: 230ms for query:0
+2022-07-20 14:52:06,681 [17] DEBUG  Application - time Taken To open Connection: 4168ms for query:1
+2022-07-20 14:52:06,683 [17] DEBUG  Application - time Taken To run query: 3684ms for query:1
+2022-07-20 14:52:06,687 [17] DEBUG  Application - time Taken To Close Connection: 319ms for query:1
+2022-07-20 14:52:11,999 [6] DEBUG  Application - time Taken To open Connection: 3913ms for query:2
+2022-07-20 14:52:12,001 [6] DEBUG  Application - time Taken To run query: 9367ms for query:2
+2022-07-20 14:52:12,005 [6] DEBUG  Application - time Taken To Close Connection: 209ms for query:2
+2022-07-20 14:57:52,458 [43] DEBUG  Application - GetPercentChartChart '
+WITH MEMBER currentdate as "[Period].[Day 445].&[" +format(CDATE("07-19-2022"), "MMM dd yyyy" + "]")
+                                 MEMBER periodname as [Period].[Day 445].currentmember.UNIQUE_NAME
+                                            SELECT {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC MTD % vs PY (CD)],[Measures].[Unit Cases AC WTD % vs PY (CD)],[Measures].[Unit Cases AC % vs PY (CD)] }}  ON ROWS,
+                                {[Ship From].[Business Unit].children*[Period].[Day 445].[Day 445].allmembers
+                                } HAVING(periodname= currentdate)ON COLUMNS
+                                FROM(SELECT {[Ship From].[Business Unit].&[India & Southwest Asia]}ON COLUMNS FROM[Model])WHERE({[Reporting View].[Reporting View].&[Operational View]})'
+2022-07-20 14:57:52,496 [43] DEBUG  Application - getINSWAChartQuery '
+with member currentdate
+                        as
+                        "[Period].[Day 445].&[Jul 19 2022]"
+                        member periodname as
+                        [Period].[Day 445].currentmember.unique_name
+                        SELECT { [Measures].[Unit Cases AC YTD],[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]
+                        }on rows
+                        ,
+                        {[Period].[Day 445].[Day 445].allmembers 
+                        
+                        } 
+                        having(periodname=currentdate)on columns
+                        from [Model]
+                        where ({[Reporting View].[Reporting View].&[Operational View]} )'
+2022-07-20 14:57:54,145 [43] DEBUG  Application - getBLineNBarChart '
+WITH MEMBER CalendarDate As CDATE("07-19-2022")
+                            MEMBER StartDate As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+                            MEMBER EndDate As '[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']')
+                            MEMBER EndDateName As VBA!left(VBA!right('[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']'),12),6)
+                            MEMBER DATENAME As VBA!left([Period].[Day 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),6)
+                            MEMBER CurrentYear As cstr(Year(CalendarDate)-5)
+                            MEMBER YearName As [Period].[Year 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+                            SELECT  {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]}} ON ROWS
+                            ,{[Period].[Day 445].[Day 445].ALLMEMBERS * [Period].[Year 445].[Year 445].allmembers}
+                            HAVING (StartDate<=EndDate and EndDateName=DATENAME and YearName>CurrentYear) 
+                            ON COLUMNS
+                            FROM [Model]
+                            WHERE ({[Reporting View].[Reporting View].&[Operational View]}   )'
+2022-07-20 14:58:03,895 [43] DEBUG  Application - time Taken To open Connection: 5929ms for query:0
+2022-07-20 14:58:03,906 [43] DEBUG  Application - time Taken To run query: 3558ms for query:0
+2022-07-20 14:58:03,910 [43] DEBUG  Application - time Taken To Close Connection: 259ms for query:0
+2022-07-20 14:58:04,242 [39] DEBUG  Application - time Taken To open Connection: 5929ms for query:1
+2022-07-20 14:58:04,245 [39] DEBUG  Application - time Taken To run query: 3926ms for query:1
+2022-07-20 14:58:04,249 [39] DEBUG  Application - time Taken To Close Connection: 237ms for query:1
+2022-07-20 14:58:12,612 [49] DEBUG  Application - time Taken To open Connection: 5929ms for query:2
+2022-07-20 14:58:12,615 [49] DEBUG  Application - time Taken To run query: 12235ms for query:2
+2022-07-20 14:58:12,628 [49] DEBUG  Application - time Taken To Close Connection: 299ms for query:2
+2022-07-20 15:18:05,803 [33] DEBUG  Application - GetScatterChartOutput 'WITH MEMBER ZoneName AS [Ship From].[L0 - Zone].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER CurrentDate As "[Period].[Day 445].&[Jul 19 2022]"
+            MEMBER PeriodName As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+            SELECT {[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]} On Columns,([Ship From].[L0 - Zone].children * [Period].[Day 445].Children)
+            HAVING(PeriodName = CurrentDate) AND(ZoneName <> 'unassigned') ON Rows FROM[Model]
+            WHERE ({[Reporting View].[Reporting View].&[Operational View]},{[Ship From].[L0 - Region].&[India],[Ship From].[L0 - Region].&[SWA]})'
+2022-07-20 15:18:41,266 [33] DEBUG  Application - time Taken To open Connection: 5303ms
+2022-07-20 15:18:41,272 [33] DEBUG  Application - time Taken To run query: 28190ms
+2022-07-20 15:18:41,277 [33] DEBUG  Application - time Taken To Close Connection: 256ms
+2022-07-20 15:21:02,333 [47] DEBUG  Application - GetPercentChartChart '
+WITH MEMBER currentdate as "[Period].[Day 445].&[" +format(CDATE("07-19-2022"), "MMM dd yyyy" + "]")
+                                 MEMBER periodname as [Period].[Day 445].currentmember.UNIQUE_NAME
+                                            SELECT {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC MTD % vs PY (CD)],[Measures].[Unit Cases AC WTD % vs PY (CD)],[Measures].[Unit Cases AC % vs PY (CD)] }}  ON ROWS,
+                                {[Ship From].[Business Unit].children*[Period].[Day 445].[Day 445].allmembers
+                                } HAVING(periodname= currentdate)ON COLUMNS
+                                FROM(SELECT {[Ship From].[Business Unit].&[India & Southwest Asia]}ON COLUMNS FROM[Model])WHERE({[Reporting View].[Reporting View].&[Operational View]})'
+2022-07-20 15:21:02,340 [47] DEBUG  Application - getINSWAChartQuery '
+with member currentdate
+                        as
+                        "[Period].[Day 445].&[Jul 19 2022]"
+                        member periodname as
+                        [Period].[Day 445].currentmember.unique_name
+                        SELECT { [Measures].[Unit Cases AC YTD],[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]
+                        }on rows
+                        ,
+                        {[Period].[Day 445].[Day 445].allmembers 
+                        
+                        } 
+                        having(periodname=currentdate)on columns
+                        from [Model]
+                        where ({[Reporting View].[Reporting View].&[Operational View]} )'
+2022-07-20 15:21:02,344 [47] DEBUG  Application - getBLineNBarChart '
+WITH MEMBER CalendarDate As CDATE("07-19-2022")
+                            MEMBER StartDate As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+                            MEMBER EndDate As '[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']')
+                            MEMBER EndDateName As VBA!left(VBA!right('[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']'),12),6)
+                            MEMBER DATENAME As VBA!left([Period].[Day 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),6)
+                            MEMBER CurrentYear As cstr(Year(CalendarDate)-5)
+                            MEMBER YearName As [Period].[Year 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+                            SELECT  {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]}} ON ROWS
+                            ,{[Period].[Day 445].[Day 445].ALLMEMBERS * [Period].[Year 445].[Year 445].allmembers}
+                            HAVING (StartDate<=EndDate and EndDateName=DATENAME and YearName>CurrentYear) 
+                            ON COLUMNS
+                            FROM [Model]
+                            WHERE ({[Reporting View].[Reporting View].&[Operational View]}   )'
+2022-07-20 15:21:33,714 [37] DEBUG  Application - time Taken To open Connection: 8189ms for query:1
+2022-07-20 15:21:33,722 [37] DEBUG  Application - time Taken To run query: 22516ms for query:1
+2022-07-20 15:21:33,724 [37] DEBUG  Application - time Taken To Close Connection: 655ms for query:1
+2022-07-20 15:21:33,878 [47] DEBUG  Application - time Taken To open Connection: 9978ms for query:0
+2022-07-20 15:21:33,885 [47] DEBUG  Application - time Taken To run query: 21045ms for query:0
+2022-07-20 15:21:37,006 [47] DEBUG  Application - time Taken To Close Connection: 500ms for query:0
+2022-07-20 15:21:42,119 [53] DEBUG  Application - time Taken To open Connection: 9994ms for query:2
+2022-07-20 15:21:42,122 [53] DEBUG  Application - time Taken To run query: 29496ms for query:2
+2022-07-20 15:21:42,126 [53] DEBUG  Application - time Taken To Close Connection: 275ms for query:2
+2022-07-20 15:26:11,178 [56] DEBUG  Application - GetPercentChartChart '
+WITH MEMBER currentdate as "[Period].[Day 445].&[" +format(CDATE("07-19-2022"), "MMM dd yyyy" + "]")
+                                 MEMBER periodname as [Period].[Day 445].currentmember.UNIQUE_NAME
+                                            SELECT {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC MTD % vs PY (CD)],[Measures].[Unit Cases AC WTD % vs PY (CD)],[Measures].[Unit Cases AC % vs PY (CD)] }}  ON ROWS,
+                                {[Ship From].[Business Unit].children*[Period].[Day 445].[Day 445].allmembers
+                                } HAVING(periodname= currentdate)ON COLUMNS
+                                FROM(SELECT {[Ship From].[Business Unit].&[India & Southwest Asia]}ON COLUMNS FROM[Model])WHERE({[Reporting View].[Reporting View].&[Operational View]})'
+2022-07-20 15:26:11,184 [56] DEBUG  Application - getINSWAChartQuery '
+with member currentdate
+                        as
+                        "[Period].[Day 445].&[Jul 19 2022]"
+                        member periodname as
+                        [Period].[Day 445].currentmember.unique_name
+                        SELECT { [Measures].[Unit Cases AC YTD],[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]
+                        }on rows
+                        ,
+                        {[Period].[Day 445].[Day 445].allmembers 
+                        
+                        } 
+                        having(periodname=currentdate)on columns
+                        from [Model]
+                        where ({[Reporting View].[Reporting View].&[Operational View]} )'
+2022-07-20 15:26:11,188 [56] DEBUG  Application - getBLineNBarChart '
+WITH MEMBER CalendarDate As CDATE("07-19-2022")
+                            MEMBER StartDate As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+                            MEMBER EndDate As '[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']')
+                            MEMBER EndDateName As VBA!left(VBA!right('[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']'),12),6)
+                            MEMBER DATENAME As VBA!left([Period].[Day 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),6)
+                            MEMBER CurrentYear As cstr(Year(CalendarDate)-5)
+                            MEMBER YearName As [Period].[Year 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+                            SELECT  {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]}} ON ROWS
+                            ,{[Period].[Day 445].[Day 445].ALLMEMBERS * [Period].[Year 445].[Year 445].allmembers}
+                            HAVING (StartDate<=EndDate and EndDateName=DATENAME and YearName>CurrentYear) 
+                            ON COLUMNS
+                            FROM [Model]
+                            WHERE ({[Reporting View].[Reporting View].&[Operational View]}   )'
+2022-07-20 15:26:30,489 [56] DEBUG  Application - time Taken To open Connection: 3977ms for query:0
+2022-07-20 15:26:30,494 [56] DEBUG  Application - time Taken To run query: 15116ms for query:0
+2022-07-20 15:26:30,496 [56] DEBUG  Application - time Taken To Close Connection: 203ms for query:0
+2022-07-20 15:26:31,040 [19] DEBUG  Application - time Taken To open Connection: 3977ms for query:1
+2022-07-20 15:26:32,762 [19] DEBUG  Application - time Taken To run query: 15673ms for query:1
+2022-07-20 15:26:32,765 [19] DEBUG  Application - time Taken To Close Connection: 198ms for query:1
+2022-07-20 15:26:37,354 [38] DEBUG  Application - time Taken To open Connection: 3978ms for query:2
+2022-07-20 15:26:37,357 [38] DEBUG  Application - time Taken To run query: 21996ms for query:2
+2022-07-20 15:26:37,360 [38] DEBUG  Application - time Taken To Close Connection: 187ms for query:2
+2022-07-20 15:27:14,093 [59] DEBUG  Application - GetScatterChartOutput 'WITH MEMBER ZoneName AS [Ship From].[L0 - Zone].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER CurrentDate As "[Period].[Day 445].&[Jul 19 2022]"
+            MEMBER PeriodName As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+            SELECT {[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]} On Columns,([Ship From].[L0 - Zone].children * [Period].[Day 445].Children)
+            HAVING(PeriodName = CurrentDate) AND(ZoneName <> 'unassigned') ON Rows FROM[Model]
+            WHERE ({[Reporting View].[Reporting View].&[Operational View]},{[Ship From].[L0 - Region].&[India],[Ship From].[L0 - Region].&[SWA]})'
+2022-07-20 15:27:31,119 [59] DEBUG  Application - time Taken To open Connection: 1474ms
+2022-07-20 15:27:31,123 [59] DEBUG  Application - time Taken To run query: 15329ms
+2022-07-20 15:27:31,126 [59] DEBUG  Application - time Taken To Close Connection: 215ms
+2022-07-20 15:27:43,237 [27] DEBUG  Application - GetScatterChartOutput 'WITH MEMBER ZoneName AS [Ship From].[L0 - Zone].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER CurrentDate As "[Period].[Day 445].&[Jul 19 2022]"
+            MEMBER PeriodName As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+            SELECT {[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]} On Columns,([Ship From].[L0 - Zone].children * [Period].[Day 445].Children)
+            HAVING(PeriodName = CurrentDate) AND(ZoneName <> 'unassigned') ON Rows FROM[Model]
+            WHERE ({[Reporting View].[Reporting View].&[Operational View]},{[Ship From].[L0 - Region].&[India],[Ship From].[L0 - Region].&[SWA]})'
+2022-07-20 15:27:56,511 [27] DEBUG  Application - time Taken To open Connection: 1385ms
+2022-07-20 15:27:58,090 [27] DEBUG  Application - time Taken To run query: 11664ms
+2022-07-20 15:27:58,092 [27] DEBUG  Application - time Taken To Close Connection: 213ms
+2022-07-20 15:27:59,983 [61] DEBUG  Application - GetPercentChartChart '
+WITH MEMBER currentdate as "[Period].[Day 445].&[" +format(CDATE("07-19-2022"), "MMM dd yyyy" + "]")
+                                 MEMBER periodname as [Period].[Day 445].currentmember.UNIQUE_NAME
+                                            SELECT {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC MTD % vs PY (CD)],[Measures].[Unit Cases AC WTD % vs PY (CD)],[Measures].[Unit Cases AC % vs PY (CD)] }}  ON ROWS,
+                                {[Ship From].[Business Unit].children*[Period].[Day 445].[Day 445].allmembers
+                                } HAVING(periodname= currentdate)ON COLUMNS
+                                FROM(SELECT {[Ship From].[Business Unit].&[India & Southwest Asia]}ON COLUMNS FROM[Model])WHERE({[Reporting View].[Reporting View].&[Operational View]})'
+2022-07-20 15:27:59,985 [61] DEBUG  Application - getINSWAChartQuery '
+with member currentdate
+                        as
+                        "[Period].[Day 445].&[Jul 19 2022]"
+                        member periodname as
+                        [Period].[Day 445].currentmember.unique_name
+                        SELECT { [Measures].[Unit Cases AC YTD],[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]
+                        }on rows
+                        ,
+                        {[Period].[Day 445].[Day 445].allmembers 
+                        
+                        } 
+                        having(periodname=currentdate)on columns
+                        from [Model]
+                        where ({[Reporting View].[Reporting View].&[Operational View]} )'
+2022-07-20 15:27:59,989 [61] DEBUG  Application - getBLineNBarChart '
+WITH MEMBER CalendarDate As CDATE("07-19-2022")
+                            MEMBER StartDate As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+                            MEMBER EndDate As '[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']')
+                            MEMBER EndDateName As VBA!left(VBA!right('[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']'),12),6)
+                            MEMBER DATENAME As VBA!left([Period].[Day 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),6)
+                            MEMBER CurrentYear As cstr(Year(CalendarDate)-5)
+                            MEMBER YearName As [Period].[Year 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+                            SELECT  {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]}} ON ROWS
+                            ,{[Period].[Day 445].[Day 445].ALLMEMBERS * [Period].[Year 445].[Year 445].allmembers}
+                            HAVING (StartDate<=EndDate and EndDateName=DATENAME and YearName>CurrentYear) 
+                            ON COLUMNS
+                            FROM [Model]
+                            WHERE ({[Reporting View].[Reporting View].&[Operational View]}   )'
+2022-07-20 15:28:04,026 [61] DEBUG  Application - time Taken To open Connection: 1652ms for query:0
+2022-07-20 15:28:04,030 [61] DEBUG  Application - time Taken To run query: 2196ms for query:0
+2022-07-20 15:28:04,032 [61] DEBUG  Application - time Taken To Close Connection: 185ms for query:0
+2022-07-20 15:28:04,835 [14] DEBUG  Application - time Taken To open Connection: 2071ms for query:1
+2022-07-20 15:28:04,837 [14] DEBUG  Application - time Taken To run query: 2578ms for query:1
+2022-07-20 15:28:04,840 [14] DEBUG  Application - time Taken To Close Connection: 193ms for query:1
+2022-07-20 15:28:11,925 [26] DEBUG  Application - time Taken To open Connection: 2592ms for query:2
+2022-07-20 15:28:11,927 [26] DEBUG  Application - time Taken To run query: 9155ms for query:2
+2022-07-20 15:28:11,930 [26] DEBUG  Application - time Taken To Close Connection: 185ms for query:2
+2022-07-20 15:28:13,309 [51] DEBUG  Application - GetScatterChartOutput 'WITH MEMBER ZoneName AS [Ship From].[L0 - Zone].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER CurrentDate As "[Period].[Day 445].&[Jul 19 2022]"
+            MEMBER PeriodName As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+            SELECT {[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]} On Columns,([Ship From].[L0 - Zone].children * [Period].[Day 445].Children)
+            HAVING(PeriodName = CurrentDate) AND(ZoneName <> 'unassigned') ON Rows FROM[Model]
+            WHERE ({[Reporting View].[Reporting View].&[Operational View]},{[Ship From].[L0 - Region].&[India],[Ship From].[L0 - Region].&[SWA]})'
+2022-07-20 15:28:26,394 [51] DEBUG  Application - time Taken To open Connection: 1442ms
+2022-07-20 15:28:26,397 [51] DEBUG  Application - time Taken To run query: 11447ms
+2022-07-20 15:28:26,399 [51] DEBUG  Application - time Taken To Close Connection: 190ms
+2022-07-20 15:29:08,663 [1] DEBUG  Application - Application Started
+2022-07-20 15:29:23,904 [14] DEBUG  Application - GetPercentChartChart '
+WITH MEMBER currentdate as "[Period].[Day 445].&[" +format(CDATE("07-19-2022"), "MMM dd yyyy" + "]")
+                                 MEMBER periodname as [Period].[Day 445].currentmember.UNIQUE_NAME
+                                            SELECT {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC MTD % vs PY (CD)],[Measures].[Unit Cases AC WTD % vs PY (CD)],[Measures].[Unit Cases AC % vs PY (CD)] }}  ON ROWS,
+                                {[Ship From].[Business Unit].children*[Period].[Day 445].[Day 445].allmembers
+                                } HAVING(periodname= currentdate)ON COLUMNS
+                                FROM(SELECT {[Ship From].[Business Unit].&[India & Southwest Asia]}ON COLUMNS FROM[Model])WHERE({[Reporting View].[Reporting View].&[Operational View]})'
+2022-07-20 15:29:23,927 [14] DEBUG  Application - getINSWAChartQuery '
+with member currentdate
+                        as
+                        "[Period].[Day 445].&[Jul 19 2022]"
+                        member periodname as
+                        [Period].[Day 445].currentmember.unique_name
+                        SELECT { [Measures].[Unit Cases AC YTD],[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]
+                        }on rows
+                        ,
+                        {[Period].[Day 445].[Day 445].allmembers 
+                        
+                        } 
+                        having(periodname=currentdate)on columns
+                        from [Model]
+                        where ({[Reporting View].[Reporting View].&[Operational View]} )'
+2022-07-20 15:29:23,930 [14] DEBUG  Application - getBLineNBarChart '
+WITH MEMBER CalendarDate As CDATE("07-19-2022")
+                            MEMBER StartDate As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+                            MEMBER EndDate As '[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']')
+                            MEMBER EndDateName As VBA!left(VBA!right('[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']'),12),6)
+                            MEMBER DATENAME As VBA!left([Period].[Day 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),6)
+                            MEMBER CurrentYear As cstr(Year(CalendarDate)-5)
+                            MEMBER YearName As [Period].[Year 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+                            SELECT  {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]}} ON ROWS
+                            ,{[Period].[Day 445].[Day 445].ALLMEMBERS * [Period].[Year 445].[Year 445].allmembers}
+                            HAVING (StartDate<=EndDate and EndDateName=DATENAME and YearName>CurrentYear) 
+                            ON COLUMNS
+                            FROM [Model]
+                            WHERE ({[Reporting View].[Reporting View].&[Operational View]}   )'
+2022-07-20 15:29:33,290 [14] DEBUG  Application - time Taken To open Connection: 6075ms for query:0
+2022-07-20 15:29:33,294 [14] DEBUG  Application - time Taken To run query: 3073ms for query:0
+2022-07-20 15:29:33,297 [14] DEBUG  Application - time Taken To Close Connection: 195ms for query:0
+2022-07-20 15:29:33,727 [12] DEBUG  Application - time Taken To open Connection: 6087ms for query:1
+2022-07-20 15:29:33,729 [12] DEBUG  Application - time Taken To run query: 3478ms for query:1
+2022-07-20 15:29:33,732 [12] DEBUG  Application - time Taken To Close Connection: 214ms for query:1
+2022-07-20 15:29:39,937 [13] DEBUG  Application - time Taken To open Connection: 6076ms for query:2
+2022-07-20 15:29:41,548 [13] DEBUG  Application - time Taken To run query: 9693ms for query:2
+2022-07-20 15:29:41,551 [13] DEBUG  Application - time Taken To Close Connection: 221ms for query:2
+2022-07-20 15:29:42,165 [14] DEBUG  Application - GetRegionData 'WITH MEMBER BUSINESSNAME AS
+            [Ship From].[Business Unit].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER REGIONNAME AS 
+            [Ship From].[L0 - Region].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER BUSINESSID AS
+            [Ship From].[Business Unit].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER REGIONID AS 
+            [Ship From].[L0 - Region].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BOTTLERGROUPID AS 
+            [Ship From].[L0 - Entity].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER ZONEID AS 
+            [Ship From].[L0 - Zone].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BUSHIPID AS 
+            [Ship From].[BU Ship From].CURRENTMEMBER.UNIQUE_NAME
+            SELECT {BUSINESSID,REGIONID,BOTTLERGROUPID,ZONEID,BUSHIPID}ON COLUMNS
+            ,{[Ship From].[Business Unit].ALLMEMBERS * [Ship From].[L0 - Region].[L0 - Region].ALLMEMBERS
+            *[Ship From].[L0 - Entity].[L0 - Entity].ALLMEMBERS * [Ship From].[L0 - Zone].[L0 - Zone].ALLMEMBERS *
+            [Ship From].[BU Ship From].[BU Ship From].ALLMEMBERS}
+            HAVING(BUSINESSNAME='India & Southwest Asia' )ON ROWS
+            FROM [Model]'
+2022-07-20 15:29:42,168 [14] DEBUG  Application - GetBrandData 'WITH MEMBER CATEGORYID AS
+            [Product].[L0 - Category].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BRANDID AS 
+            [Product].[L0 - Brand].CURRENTMEMBER.UNIQUE_NAME
+            SELECT NON EMPTY{[Product].[L0 - Category].CHILDREN * [Product].[L0 - Brand].CHILDREN}
+            HAVING (CATEGORYID<>'[Product].[L0 - Category].&[]' AND CATEGORYID<>'[Product].[L0 - Category].&')
+            ON ROWS
+            ,{CATEGORYID,BRANDID}ON COLUMNS
+            FROM [Model]'
+2022-07-20 15:29:47,458 [12] DEBUG  Application - time Taken To open Connection: 1835ms for query:1
+2022-07-20 15:29:47,460 [12] DEBUG  Application - time Taken To run query: 3135ms for query:1
+2022-07-20 15:29:47,463 [12] DEBUG  Application - time Taken To Close Connection: 315ms for query:1
+2022-07-20 15:29:47,848 [14] DEBUG  Application - time Taken To open Connection: 1727ms for query:0
+2022-07-20 15:29:47,852 [14] DEBUG  Application - time Taken To run query: 3737ms for query:0
+2022-07-20 15:29:47,855 [14] DEBUG  Application - time Taken To Close Connection: 211ms for query:0
+2022-07-20 16:32:11,853 [35] DEBUG  Application - GetPercentChartChart '
+WITH MEMBER currentdate as "[Period].[Day 445].&[" +format(CDATE("07-19-2022"), "MMM dd yyyy" + "]")
+                                 MEMBER periodname as [Period].[Day 445].currentmember.UNIQUE_NAME
+                                            SELECT {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC MTD % vs PY (CD)],[Measures].[Unit Cases AC WTD % vs PY (CD)],[Measures].[Unit Cases AC % vs PY (CD)] }}  ON ROWS,
+                                {[Ship From].[Business Unit].children*[Period].[Day 445].[Day 445].allmembers
+                                } HAVING(periodname= currentdate)ON COLUMNS
+                                FROM(SELECT {[Ship From].[Business Unit].&[India & Southwest Asia]}ON COLUMNS FROM[Model])WHERE({[Reporting View].[Reporting View].&[Operational View]})'
+2022-07-20 16:32:13,955 [35] DEBUG  Application - getINSWAChartQuery '
+with member currentdate
+                        as
+                        "[Period].[Day 445].&[Jul 19 2022]"
+                        member periodname as
+                        [Period].[Day 445].currentmember.unique_name
+                        SELECT { [Measures].[Unit Cases AC YTD],[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]
+                        }on rows
+                        ,
+                        {[Period].[Day 445].[Day 445].allmembers 
+                        
+                        } 
+                        having(periodname=currentdate)on columns
+                        from [Model]
+                        where ({[Reporting View].[Reporting View].&[Operational View]} )'
+2022-07-20 16:32:13,960 [35] DEBUG  Application - getBLineNBarChart '
+WITH MEMBER CalendarDate As CDATE("07-19-2022")
+                            MEMBER StartDate As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+                            MEMBER EndDate As '[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']')
+                            MEMBER EndDateName As VBA!left(VBA!right('[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']'),12),6)
+                            MEMBER DATENAME As VBA!left([Period].[Day 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),6)
+                            MEMBER CurrentYear As cstr(Year(CalendarDate)-5)
+                            MEMBER YearName As [Period].[Year 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+                            SELECT  {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]}} ON ROWS
+                            ,{[Period].[Day 445].[Day 445].ALLMEMBERS * [Period].[Year 445].[Year 445].allmembers}
+                            HAVING (StartDate<=EndDate and EndDateName=DATENAME and YearName>CurrentYear) 
+                            ON COLUMNS
+                            FROM [Model]
+                            WHERE ({[Reporting View].[Reporting View].&[Operational View]}   )'
+2022-07-20 16:32:35,332 [30] DEBUG  Application - time Taken To open Connection: 6527ms for query:0
+2022-07-20 16:32:35,340 [30] DEBUG  Application - time Taken To run query: 14579ms for query:0
+2022-07-20 16:32:35,343 [30] DEBUG  Application - time Taken To Close Connection: 257ms for query:0
+2022-07-20 16:32:35,634 [34] DEBUG  Application - time Taken To open Connection: 6560ms for query:1
+2022-07-20 16:32:35,638 [34] DEBUG  Application - time Taken To run query: 14868ms for query:1
+2022-07-20 16:32:35,643 [34] DEBUG  Application - time Taken To Close Connection: 237ms for query:1
+2022-07-20 16:32:43,153 [19] DEBUG  Application - time Taken To open Connection: 6518ms for query:2
+2022-07-20 16:32:43,156 [19] DEBUG  Application - time Taken To run query: 22463ms for query:2
+2022-07-20 16:32:43,160 [19] DEBUG  Application - time Taken To Close Connection: 203ms for query:2
+2022-07-20 16:32:45,196 [30] DEBUG  Application - GetRegionData 'WITH MEMBER BUSINESSNAME AS
+            [Ship From].[Business Unit].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER REGIONNAME AS 
+            [Ship From].[L0 - Region].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER BUSINESSID AS
+            [Ship From].[Business Unit].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER REGIONID AS 
+            [Ship From].[L0 - Region].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BOTTLERGROUPID AS 
+            [Ship From].[L0 - Entity].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER ZONEID AS 
+            [Ship From].[L0 - Zone].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BUSHIPID AS 
+            [Ship From].[BU Ship From].CURRENTMEMBER.UNIQUE_NAME
+            SELECT {BUSINESSID,REGIONID,BOTTLERGROUPID,ZONEID,BUSHIPID}ON COLUMNS
+            ,{[Ship From].[Business Unit].ALLMEMBERS * [Ship From].[L0 - Region].[L0 - Region].ALLMEMBERS
+            *[Ship From].[L0 - Entity].[L0 - Entity].ALLMEMBERS * [Ship From].[L0 - Zone].[L0 - Zone].ALLMEMBERS *
+            [Ship From].[BU Ship From].[BU Ship From].ALLMEMBERS}
+            HAVING(BUSINESSNAME='India & Southwest Asia' )ON ROWS
+            FROM [Model]'
+2022-07-20 16:32:45,204 [30] DEBUG  Application - GetBrandData 'WITH MEMBER CATEGORYID AS
+            [Product].[L0 - Category].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BRANDID AS 
+            [Product].[L0 - Brand].CURRENTMEMBER.UNIQUE_NAME
+            SELECT NON EMPTY{[Product].[L0 - Category].CHILDREN * [Product].[L0 - Brand].CHILDREN}
+            HAVING (CATEGORYID<>'[Product].[L0 - Category].&[]' AND CATEGORYID<>'[Product].[L0 - Category].&')
+            ON ROWS
+            ,{CATEGORYID,BRANDID}ON COLUMNS
+            FROM [Model]'
+2022-07-20 16:32:51,925 [30] DEBUG  Application - time Taken To open Connection: 2131ms for query:0
+2022-07-20 16:32:51,930 [30] DEBUG  Application - time Taken To run query: 4378ms for query:0
+2022-07-20 16:32:51,937 [30] DEBUG  Application - time Taken To Close Connection: 205ms for query:0
+2022-07-20 16:32:52,878 [34] DEBUG  Application - time Taken To open Connection: 2034ms for query:1
+2022-07-20 16:32:52,881 [34] DEBUG  Application - time Taken To run query: 5449ms for query:1
+2022-07-20 16:32:52,883 [34] DEBUG  Application - time Taken To Close Connection: 184ms for query:1
+2022-07-20 16:38:13,183 [78] DEBUG  Application - GetPercentChartChart '
+WITH MEMBER currentdate as "[Period].[Day 445].&[" +format(CDATE("07-19-2022"), "MMM dd yyyy" + "]")
+                                 MEMBER periodname as [Period].[Day 445].currentmember.UNIQUE_NAME
+                                            SELECT {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC MTD % vs PY (CD)],[Measures].[Unit Cases AC WTD % vs PY (CD)],[Measures].[Unit Cases AC % vs PY (CD)] }}  ON ROWS,
+                                {[Ship From].[Business Unit].children*[Period].[Day 445].[Day 445].allmembers
+                                } HAVING(periodname= currentdate)ON COLUMNS
+                                FROM(SELECT {[Ship From].[Business Unit].&[India & Southwest Asia]}ON COLUMNS FROM[Model])WHERE({[Reporting View].[Reporting View].&[Operational View]})'
+2022-07-20 16:38:13,796 [78] DEBUG  Application - getINSWAChartQuery '
+with member currentdate
+                        as
+                        "[Period].[Day 445].&[Jul 19 2022]"
+                        member periodname as
+                        [Period].[Day 445].currentmember.unique_name
+                        SELECT { [Measures].[Unit Cases AC YTD],[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]
+                        }on rows
+                        ,
+                        {[Period].[Day 445].[Day 445].allmembers 
+                        
+                        } 
+                        having(periodname=currentdate)on columns
+                        from [Model]
+                        where ({[Reporting View].[Reporting View].&[Operational View]} )'
+2022-07-20 16:38:13,829 [78] DEBUG  Application - getBLineNBarChart '
+WITH MEMBER CalendarDate As CDATE("07-19-2022")
+                            MEMBER StartDate As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+                            MEMBER EndDate As '[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']')
+                            MEMBER EndDateName As VBA!left(VBA!right('[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']'),12),6)
+                            MEMBER DATENAME As VBA!left([Period].[Day 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),6)
+                            MEMBER CurrentYear As cstr(Year(CalendarDate)-5)
+                            MEMBER YearName As [Period].[Year 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+                            SELECT  {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]}} ON ROWS
+                            ,{[Period].[Day 445].[Day 445].ALLMEMBERS * [Period].[Year 445].[Year 445].allmembers}
+                            HAVING (StartDate<=EndDate and EndDateName=DATENAME and YearName>CurrentYear) 
+                            ON COLUMNS
+                            FROM [Model]
+                            WHERE ({[Reporting View].[Reporting View].&[Operational View]}   )'
+2022-07-20 16:38:36,361 [75] DEBUG  Application - time Taken To open Connection: 4477ms for query:0
+2022-07-20 16:38:36,370 [75] DEBUG  Application - time Taken To run query: 16289ms for query:0
+2022-07-20 16:38:36,374 [75] DEBUG  Application - time Taken To Close Connection: 214ms for query:0
+2022-07-20 16:38:37,413 [17] DEBUG  Application - time Taken To open Connection: 4650ms for query:1
+2022-07-20 16:38:37,417 [17] DEBUG  Application - time Taken To run query: 17035ms for query:1
+2022-07-20 16:38:37,420 [17] DEBUG  Application - time Taken To Close Connection: 347ms for query:1
+2022-07-20 16:38:39,756 [78] DEBUG  Application - time Taken To open Connection: 4608ms for query:2
+2022-07-20 16:38:39,762 [78] DEBUG  Application - time Taken To run query: 19563ms for query:2
+2022-07-20 16:38:39,766 [78] DEBUG  Application - time Taken To Close Connection: 205ms for query:2
+2022-07-20 16:38:40,159 [91] DEBUG  Application - GetScatterChartOutput 'WITH MEMBER ZoneName AS [Ship From].[L0 - Zone].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER CurrentDate As "[Period].[Day 445].&[Jul 19 2022]"
+            MEMBER PeriodName As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+            SELECT {[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]} On Columns,([Ship From].[L0 - Zone].children * [Period].[Day 445].Children)
+            HAVING(PeriodName = CurrentDate) AND(ZoneName <> 'unassigned') ON Rows FROM[Model]
+            WHERE ({[Reporting View].[Reporting View].&[Operational View]},{[Ship From].[L0 - Region].&[India],[Ship From].[L0 - Region].&[SWA]})'
+2022-07-20 16:38:57,188 [91] DEBUG  Application - time Taken To open Connection: 1515ms
+2022-07-20 16:38:58,644 [91] DEBUG  Application - time Taken To run query: 15254ms
+2022-07-20 16:38:58,651 [91] DEBUG  Application - time Taken To Close Connection: 241ms
+2022-07-20 18:08:19,619 [64] DEBUG  Application - GetPercentChartChart '
+WITH MEMBER currentdate as "[Period].[Day 445].&[" +format(CDATE("07-19-2022"), "MMM dd yyyy" + "]")
+                                 MEMBER periodname as [Period].[Day 445].currentmember.UNIQUE_NAME
+                                            SELECT {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC MTD % vs PY (CD)],[Measures].[Unit Cases AC WTD % vs PY (CD)],[Measures].[Unit Cases AC % vs PY (CD)] }}  ON ROWS,
+                                {[Ship From].[Business Unit].children*[Period].[Day 445].[Day 445].allmembers
+                                } HAVING(periodname= currentdate)ON COLUMNS
+                                FROM(SELECT {[Ship From].[Business Unit].&[India & Southwest Asia]}ON COLUMNS FROM[Model])WHERE({[Reporting View].[Reporting View].&[Operational View]})'
+2022-07-20 18:08:19,725 [64] DEBUG  Application - getINSWAChartQuery '
+with member currentdate
+                        as
+                        "[Period].[Day 445].&[Jul 19 2022]"
+                        member periodname as
+                        [Period].[Day 445].currentmember.unique_name
+                        SELECT { [Measures].[Unit Cases AC YTD],[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]
+                        }on rows
+                        ,
+                        {[Period].[Day 445].[Day 445].allmembers 
+                        
+                        } 
+                        having(periodname=currentdate)on columns
+                        from [Model]
+                        where ({[Reporting View].[Reporting View].&[Operational View]} )'
+2022-07-20 18:08:19,729 [64] DEBUG  Application - getBLineNBarChart '
+WITH MEMBER CalendarDate As CDATE("07-19-2022")
+                            MEMBER StartDate As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+                            MEMBER EndDate As '[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']')
+                            MEMBER EndDateName As VBA!left(VBA!right('[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']'),12),6)
+                            MEMBER DATENAME As VBA!left([Period].[Day 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),6)
+                            MEMBER CurrentYear As cstr(Year(CalendarDate)-5)
+                            MEMBER YearName As [Period].[Year 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+                            SELECT  {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]}} ON ROWS
+                            ,{[Period].[Day 445].[Day 445].ALLMEMBERS * [Period].[Year 445].[Year 445].allmembers}
+                            HAVING (StartDate<=EndDate and EndDateName=DATENAME and YearName>CurrentYear) 
+                            ON COLUMNS
+                            FROM [Model]
+                            WHERE ({[Reporting View].[Reporting View].&[Operational View]}   )'
+2022-07-20 18:08:46,222 [47] DEBUG  Application - time Taken To open Connection: 8840ms for query:1
+2022-07-20 18:08:46,232 [47] DEBUG  Application - time Taken To run query: 17444ms for query:1
+2022-07-20 18:08:46,235 [47] DEBUG  Application - time Taken To Close Connection: 187ms for query:1
+2022-07-20 18:08:46,454 [64] DEBUG  Application - time Taken To open Connection: 8444ms for query:0
+2022-07-20 18:08:46,460 [64] DEBUG  Application - time Taken To run query: 18078ms for query:0
+2022-07-20 18:08:46,464 [64] DEBUG  Application - time Taken To Close Connection: 180ms for query:0
+2022-07-20 18:08:52,572 [32] DEBUG  Application - time Taken To open Connection: 8785ms for query:2
+2022-07-20 18:08:52,577 [32] DEBUG  Application - time Taken To run query: 23847ms for query:2
+2022-07-20 18:08:52,581 [32] DEBUG  Application - time Taken To Close Connection: 189ms for query:2
+2022-07-20 18:08:54,393 [46] DEBUG  Application - GetRegionData 'WITH MEMBER BUSINESSNAME AS
+            [Ship From].[Business Unit].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER REGIONNAME AS 
+            [Ship From].[L0 - Region].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER BUSINESSID AS
+            [Ship From].[Business Unit].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER REGIONID AS 
+            [Ship From].[L0 - Region].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BOTTLERGROUPID AS 
+            [Ship From].[L0 - Entity].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER ZONEID AS 
+            [Ship From].[L0 - Zone].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BUSHIPID AS 
+            [Ship From].[BU Ship From].CURRENTMEMBER.UNIQUE_NAME
+            SELECT {BUSINESSID,REGIONID,BOTTLERGROUPID,ZONEID,BUSHIPID}ON COLUMNS
+            ,{[Ship From].[Business Unit].ALLMEMBERS * [Ship From].[L0 - Region].[L0 - Region].ALLMEMBERS
+            *[Ship From].[L0 - Entity].[L0 - Entity].ALLMEMBERS * [Ship From].[L0 - Zone].[L0 - Zone].ALLMEMBERS *
+            [Ship From].[BU Ship From].[BU Ship From].ALLMEMBERS}
+            HAVING(BUSINESSNAME='India & Southwest Asia' )ON ROWS
+            FROM [Model]'
+2022-07-20 18:08:54,402 [46] DEBUG  Application - GetBrandData 'WITH MEMBER CATEGORYID AS
+            [Product].[L0 - Category].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BRANDID AS 
+            [Product].[L0 - Brand].CURRENTMEMBER.UNIQUE_NAME
+            SELECT NON EMPTY{[Product].[L0 - Category].CHILDREN * [Product].[L0 - Brand].CHILDREN}
+            HAVING (CATEGORYID<>'[Product].[L0 - Category].&[]' AND CATEGORYID<>'[Product].[L0 - Category].&')
+            ON ROWS
+            ,{CATEGORYID,BRANDID}ON COLUMNS
+            FROM [Model]'
+2022-07-20 18:08:58,732 [64] DEBUG  Application - time Taken To open Connection: 1928ms for query:1
+2022-07-20 18:08:58,736 [64] DEBUG  Application - time Taken To run query: 2203ms for query:1
+2022-07-20 18:08:58,740 [64] DEBUG  Application - time Taken To Close Connection: 191ms for query:1
+2022-07-20 18:08:58,886 [46] DEBUG  Application - time Taken To open Connection: 1699ms for query:0
+2022-07-20 18:08:58,892 [46] DEBUG  Application - time Taken To run query: 2584ms for query:0
+2022-07-20 18:08:58,897 [46] DEBUG  Application - time Taken To Close Connection: 193ms for query:0
+2022-07-20 18:16:44,719 [64] DEBUG  Application - GetPercentChartChart '
+WITH MEMBER currentdate as "[Period].[Day 445].&[" +format(CDATE("07-19-2022"), "MMM dd yyyy" + "]")
+                                 MEMBER periodname as [Period].[Day 445].currentmember.UNIQUE_NAME
+                                            SELECT {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC MTD % vs PY (CD)],[Measures].[Unit Cases AC WTD % vs PY (CD)],[Measures].[Unit Cases AC % vs PY (CD)] }}  ON ROWS,
+                                {[Ship From].[Business Unit].children*[Period].[Day 445].[Day 445].allmembers
+                                } HAVING(periodname= currentdate)ON COLUMNS
+                                FROM(SELECT {[Ship From].[Business Unit].&[India & Southwest Asia]}ON COLUMNS FROM[Model])WHERE({[Reporting View].[Reporting View].&[Operational View]})'
+2022-07-20 18:16:44,771 [64] DEBUG  Application - getINSWAChartQuery '
+with member currentdate
+                        as
+                        "[Period].[Day 445].&[Jul 19 2022]"
+                        member periodname as
+                        [Period].[Day 445].currentmember.unique_name
+                        SELECT { [Measures].[Unit Cases AC YTD],[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]
+                        }on rows
+                        ,
+                        {[Period].[Day 445].[Day 445].allmembers 
+                        
+                        } 
+                        having(periodname=currentdate)on columns
+                        from [Model]
+                        where ({[Reporting View].[Reporting View].&[Operational View]} )'
+2022-07-20 18:16:44,776 [64] DEBUG  Application - getBLineNBarChart '
+WITH MEMBER CalendarDate As CDATE("07-19-2022")
+                            MEMBER StartDate As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+                            MEMBER EndDate As '[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']')
+                            MEMBER EndDateName As VBA!left(VBA!right('[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']'),12),6)
+                            MEMBER DATENAME As VBA!left([Period].[Day 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),6)
+                            MEMBER CurrentYear As cstr(Year(CalendarDate)-5)
+                            MEMBER YearName As [Period].[Year 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+                            SELECT  {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]}} ON ROWS
+                            ,{[Period].[Day 445].[Day 445].ALLMEMBERS * [Period].[Year 445].[Year 445].allmembers}
+                            HAVING (StartDate<=EndDate and EndDateName=DATENAME and YearName>CurrentYear) 
+                            ON COLUMNS
+                            FROM [Model]
+                            WHERE ({[Reporting View].[Reporting View].&[Operational View]}   )'
+2022-07-20 18:17:06,648 [45] DEBUG  Application - time Taken To open Connection: 3412ms for query:1
+2022-07-20 18:17:06,655 [45] DEBUG  Application - time Taken To run query: 18249ms for query:1
+2022-07-20 18:17:06,658 [45] DEBUG  Application - time Taken To Close Connection: 206ms for query:1
+2022-07-20 18:17:06,785 [64] DEBUG  Application - time Taken To open Connection: 3608ms for query:0
+2022-07-20 18:17:06,792 [64] DEBUG  Application - time Taken To run query: 18214ms for query:0
+2022-07-20 18:17:06,795 [64] DEBUG  Application - time Taken To Close Connection: 181ms for query:0
+2022-07-20 18:17:13,052 [62] DEBUG  Application - time Taken To open Connection: 3257ms for query:2
+2022-07-20 18:17:13,055 [62] DEBUG  Application - time Taken To run query: 24762ms for query:2
+2022-07-20 18:17:14,900 [62] DEBUG  Application - time Taken To Close Connection: 250ms for query:2
+2022-07-20 18:40:47,752 [25] DEBUG  Application - GetPercentChartChart '
+WITH MEMBER currentdate as "[Period].[Day 445].&[" +format(CDATE("07-19-2022"), "MMM dd yyyy" + "]")
+                                 MEMBER periodname as [Period].[Day 445].currentmember.UNIQUE_NAME
+                                            SELECT {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC MTD % vs PY (CD)],[Measures].[Unit Cases AC WTD % vs PY (CD)],[Measures].[Unit Cases AC % vs PY (CD)] }}  ON ROWS,
+                                {[Ship From].[Business Unit].children*[Period].[Day 445].[Day 445].allmembers
+                                } HAVING(periodname= currentdate)ON COLUMNS
+                                FROM(SELECT {[Ship From].[Business Unit].&[India & Southwest Asia]}ON COLUMNS FROM[Model])WHERE({[Reporting View].[Reporting View].&[Operational View]})'
+2022-07-20 18:40:47,777 [25] DEBUG  Application - getINSWAChartQuery '
+with member currentdate
+                        as
+                        "[Period].[Day 445].&[Jul 19 2022]"
+                        member periodname as
+                        [Period].[Day 445].currentmember.unique_name
+                        SELECT { [Measures].[Unit Cases AC YTD],[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]
+                        }on rows
+                        ,
+                        {[Period].[Day 445].[Day 445].allmembers 
+                        
+                        } 
+                        having(periodname=currentdate)on columns
+                        from [Model]
+                        where ({[Reporting View].[Reporting View].&[Operational View]} )'
+2022-07-20 18:40:47,781 [25] DEBUG  Application - getBLineNBarChart '
+WITH MEMBER CalendarDate As CDATE("07-19-2022")
+                            MEMBER StartDate As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+                            MEMBER EndDate As '[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']')
+                            MEMBER EndDateName As VBA!left(VBA!right('[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']'),12),6)
+                            MEMBER DATENAME As VBA!left([Period].[Day 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),6)
+                            MEMBER CurrentYear As cstr(Year(CalendarDate)-5)
+                            MEMBER YearName As [Period].[Year 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+                            SELECT  {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]}} ON ROWS
+                            ,{[Period].[Day 445].[Day 445].ALLMEMBERS * [Period].[Year 445].[Year 445].allmembers}
+                            HAVING (StartDate<=EndDate and EndDateName=DATENAME and YearName>CurrentYear) 
+                            ON COLUMNS
+                            FROM [Model]
+                            WHERE ({[Reporting View].[Reporting View].&[Operational View]}   )'
+2022-07-20 18:41:09,845 [51] DEBUG  Application - time Taken To open Connection: 3791ms for query:1
+2022-07-20 18:41:09,850 [51] DEBUG  Application - time Taken To run query: 18106ms for query:1
+2022-07-20 18:41:09,852 [51] DEBUG  Application - time Taken To Close Connection: 160ms for query:1
+2022-07-20 18:41:09,940 [25] DEBUG  Application - time Taken To open Connection: 3798ms for query:0
+2022-07-20 18:41:09,946 [25] DEBUG  Application - time Taken To run query: 18193ms for query:0
+2022-07-20 18:41:09,952 [25] DEBUG  Application - time Taken To Close Connection: 162ms for query:0
+2022-07-20 18:41:16,107 [61] DEBUG  Application - time Taken To open Connection: 3668ms for query:2
+2022-07-20 18:41:17,379 [61] DEBUG  Application - time Taken To run query: 24460ms for query:2
+2022-07-20 18:41:17,382 [61] DEBUG  Application - time Taken To Close Connection: 192ms for query:2
+2022-07-20 18:41:18,284 [51] DEBUG  Application - GetRegionData 'WITH MEMBER BUSINESSNAME AS
+            [Ship From].[Business Unit].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER REGIONNAME AS 
+            [Ship From].[L0 - Region].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER BUSINESSID AS
+            [Ship From].[Business Unit].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER REGIONID AS 
+            [Ship From].[L0 - Region].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BOTTLERGROUPID AS 
+            [Ship From].[L0 - Entity].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER ZONEID AS 
+            [Ship From].[L0 - Zone].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BUSHIPID AS 
+            [Ship From].[BU Ship From].CURRENTMEMBER.UNIQUE_NAME
+            SELECT {BUSINESSID,REGIONID,BOTTLERGROUPID,ZONEID,BUSHIPID}ON COLUMNS
+            ,{[Ship From].[Business Unit].ALLMEMBERS * [Ship From].[L0 - Region].[L0 - Region].ALLMEMBERS
+            *[Ship From].[L0 - Entity].[L0 - Entity].ALLMEMBERS * [Ship From].[L0 - Zone].[L0 - Zone].ALLMEMBERS *
+            [Ship From].[BU Ship From].[BU Ship From].ALLMEMBERS}
+            HAVING(BUSINESSNAME='India & Southwest Asia' )ON ROWS
+            FROM [Model]'
+2022-07-20 18:41:18,290 [51] DEBUG  Application - GetBrandData 'WITH MEMBER CATEGORYID AS
+            [Product].[L0 - Category].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BRANDID AS 
+            [Product].[L0 - Brand].CURRENTMEMBER.UNIQUE_NAME
+            SELECT NON EMPTY{[Product].[L0 - Category].CHILDREN * [Product].[L0 - Brand].CHILDREN}
+            HAVING (CATEGORYID<>'[Product].[L0 - Category].&[]' AND CATEGORYID<>'[Product].[L0 - Category].&')
+            ON ROWS
+            ,{CATEGORYID,BRANDID}ON COLUMNS
+            FROM [Model]'
+2022-07-20 18:41:22,063 [61] DEBUG  Application - time Taken To open Connection: 1543ms for query:1
+2022-07-20 18:41:22,067 [61] DEBUG  Application - time Taken To run query: 2001ms for query:1
+2022-07-20 18:41:22,071 [61] DEBUG  Application - time Taken To Close Connection: 225ms for query:1
+2022-07-20 18:41:22,232 [51] DEBUG  Application - time Taken To open Connection: 1444ms for query:0
+2022-07-20 18:41:22,235 [51] DEBUG  Application - time Taken To run query: 2329ms for query:0
+2022-07-20 18:41:22,240 [51] DEBUG  Application - time Taken To Close Connection: 164ms for query:0

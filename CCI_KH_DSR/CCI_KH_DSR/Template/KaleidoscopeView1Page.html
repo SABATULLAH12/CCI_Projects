@@ -1,0 +1,51 @@
+﻿
+<div clickCapture ng-controller="KaleidoscopeView1Controller" ng-click="kvcontroler_Click();" class="kv1_container">   
+    <div class="top-left blockstyle">
+        <div class="sectonHeader"><div class="sectonHeader-text"> GROWTH % </div></div>
+        <div ng-if="topleftData == false || topleftData.data.length<1" class="DataNotAvl">Data Not Available</div> <!--Data Not Available-->
+        
+        <table cellspacing="0" cellpadding="0" style="height:100%">
+            <tr  class="top-left-eachitem" ng-class="{'top-left-eachitem-selctd':SelectedName==eachRow.Name}"  ng-repeat="eachRow in topleftData.data"  ng-click="TLChart_Click(eachRow.Name)">
+                <td style="width:15%;" class="timeptdleft timeptd"><div style="width:100%" class="top-left-text-arng" ng-class="{'top-left-name':SelectedName==eachRow.Name}">{{eachRow.Name}}</div></td>
+                <td ng-if="(parseInt(showNegPos) != 1)"  ng-class="{'perc76': showNegPos == 0,'perc38': showNegPos == 2}"  style="width:0px;box-shadow: inset -4px 0px 4px -3px lightgrey;" class="timeptd">
+                  <div ng-if="(eachRow.value<0)" class="ngepointer" ng-style="{width:getvalueinpercent(eachRow.value) + '%'}"><div class="negpointerDot"></div></div>
+                </td>
+                <td ng-if="$first" style="width:1px;background-color:lightgray;" class="timeptd" rowspan="5"></td>
+                <td ng-if="(parseInt(showNegPos) != 0)" ng-class="{'perc76': showNegPos == 1,'perc38': showNegPos == 2,'tl-tim-posshadow':showNegPos == 1}" style="width:0px;" class="timeptd"> <!--ng-class="{'perc76': showNegPos == 1 }"-->
+                    <div ng-if="(eachRow.value>=0)" class="pospointer" ng-style="{width:getvalueinpercent(eachRow.value) + '%'}"><div class="pospointerDot"></div></div>
+                </td>
+                <td class="timeptd top-left-text-arng"><div class="tl-timep-val">{{getRound(eachRow.value)}}</div></td>
+            </tr>
+        </table>
+    </div>
+    <div class="top-right blockstyle">
+        <div class="backbutton" ng-show="showBackbtn==true" ng-show="getSelectedModule().ModuleName=='KV1'" ng-click="ClickBack($event)"></div>
+        <div class="sectonHeader-TR" style="z-index:7;"><div class="sectonHeader-text"> DECOMPOSITION </div></div>
+        <div ng-if="showTopRight == false" style="left:40%;top:38%" class="DataNotAvl">Data Not Available</div><!--Data Not Available-->
+        <div style="width:100%;height:100%;overflow: hidden; overflow-x: auto;padding-top:0px;padding-bottom:0px">
+            <div class="overlayparent" style="width:100%;height:59.5%;z-index:6;display:none;">
+                <div class="FixedParentnode" id="1">
+                    <div class="parentTxticonContainer">
+                        <div class="parentIcon {{parentnodIco}}_pT"></div>
+                        <div class="parentTxt" title="{{PerNode.Name}}">{{PerNode.Name}}</div>
+                        <div class="parentVal {{checkVolume(PerNode.Value,PerNode.tooltip)}}" ng-class="" title="{{commaOrperc(PerNode.tooltip,true)}}">{{commaOrperc(PerNode.Value,false)}}</div>
+                        <div class="parentPopupico node" ng-click='TRDropdown($event,this)' node-id="{{PerNode.id}}" org-name="{{PerNode.Name}}"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="orgChart" style="padding-top:0px;padding-bottom:0px;margin-top:0px;z-index: 7;"></div>
+        </div>
+    </div>
+    <div class="bottom-Chart blockstyle">
+        <div class="sectonHeader-B" style="display: flex;align-items: center;flex-direction: column;"><div class="sectonHeader-text" style="text-transform: uppercase;max-width: 168px;white-space: nowrap;overflow: hidden !important;text-overflow: ellipsis;" title="{{bottomchartheader}}" > {{bottomchartheader}} </div></div>
+        <div ng-if="showBottomchart == false" style="left:45%;" class="DataNotAvl">Data Not Available</div> <!--Data Not Available-->
+        <div id="Bottomcontainer" style="height:100%;width:100%" class="bottom-Chart-container btm-base-siz"></div>
+
+    </div>
+    <div class='top-right-node-Menu' ng-if="INSWAMenuPopUp.INSWAPopshow==true" style="width:11%;" ng-style="{'top': INSWAMenuPopUp.INSWAPopY,'left': INSWAMenuPopUp.INSWAPopX}">
+        <div>
+            <div class='tr-m-eachitem' ng-repeat="eachRow in INSWAPopMenuItems" id="{{eachRow.ID}}" ng-class="{'menudesabled':eachRow.Maxlevel<= eachRow.Curlevel ,'BrandSelected':(BrandSelected==true && {{eachRow.ID}}==2)}" data-ng-click="InswaMenuClick($event);" vlu="{{eachRow.OrgName}}">{{eachRow.DisplayName}} <div class="{{eachRow.setIcon}}" ></div> </div>
+        </div>
+    </div>
+</div>
+

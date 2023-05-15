@@ -1,0 +1,96 @@
+﻿<div ng-controller="Top10Controller" class="top10_container">
+    <span class="top10_chart_expand_button" ng-click="setLeftRightFilterShow()">{{IsLeftRightFilterOpen?"Hide Filter":"Show Filter"}}</span>
+    <div class="top10_output_container">
+        <div class="top10_left_output_container" ng-show="IsLeftRightFilterOpen">
+            <div class="top10_filter_container">
+                <div class="top10_filter_left_box" style="height:38%">
+                    <div class="top10_filter_Head">{{Top10Panel[0].DispName}}</div>
+                    <div class="top10_filter_item_left_contianer" style="height: 80%;">
+                        <div ng-repeat="item in Top10Panel[0].Data" class="top10_filter_item" ng-click="SelectTop10Filteritem(item,Top10Panel[0])" ng-attr-title="{{item.DispName}}">
+                            <div ng-class="{'radio_selected':item.IsSelected,'radio_unselected':!item.IsSelected}"></div>
+                            <div class="top10_filter_item_text" ng-style="{'font-weight':item.IsSelected?'bold':'normal'}">{{item.DispName}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="top10_filter_left_box" style="height:60%">
+                    <div class="top10_filter_Head">{{Top10Panel[1].DispName}}</div>
+                    <div class="top10_filter_item_left_contianer">
+                        <div ng-repeat="item in Top10Panel[1].Data" class="top10_filter_brand_item_container">
+                            <div class="top10_filter_brand_item_parent" ng-attr-title="{{item.DispName}}" ng-click="SelectTop10Filteritem(item,Top10Panel[1])">
+                                <div ng-class="{'radio_selected':item.IsSelected,'radio_unselected':!item.IsSelected}"></div>
+                                <div class="top10_filter_item_text" ng-style="{'font-weight':item.IsSelected?'bold':IsChildSelected(item)?'bold':'normal','float':'left'}">{{item.DispName}}</div>
+                                <div ng-show="item.Data!=null && item.Data.length>0" ng-class="{'close_dropdown':item.IsOpen,'open_dropdown':!item.IsOpen}" ng-click="$event.stopPropagation();SetItemOpenClose(item);"></div>
+                            </div>
+                            <div class="top10_filter_brand_item_child_continer" ng-repeat="item1 in item.Data" ng-show="item.IsOpen">
+                                <div class="top10_filter_brand_item_parent" ng-attr-title="{{item.DispName + ' - ' + item1.DispName}}" ng-click="SelectTop10BrandFilteritem(item1,item,Top10Panel[1])">
+                                    <div ng-class="{'radio_selected':item1.IsSelected,'radio_unselected':!item1.IsSelected}"></div>
+                                    <div class="top10_filter_item_text" ng-style="{'font-weight':item1.IsSelected?'bold':'normal'}">{{item1.DispName}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="top10_center_output_container" ng-style="{'width':IsLeftRightFilterOpen?'60%':'100%'}">
+            <div class="top10_center_output_header_container" ng-show="listGainers.length+listLosers.length>0">
+                <div class="top10_center_output_left_header_container">
+                    <div class="top10_center_output_header_text_container">TOP 10 LOSERS</div>
+                    <div class="top10_center_output_header_red_shadow_container" ng-style="{'top':IsLeftRightFilterOpen?'1.5vh':'2.5vh'}"></div>
+                </div>
+                <div class="top10_center_output_right_header_container">
+                    <div class="top10_center_output_header_text_container">TOP 10 GAINERS</div>
+                    <div class="top10_center_output_header_green_shadow_container" ng-style="{'top':IsLeftRightFilterOpen?'1.5vh':'2.5vh'}"></div>
+                </div>
+            </div>
+            <div class="top10_chart_looser_panel" ng-style="{'width':IsLeftRightFilterOpen?'20%':'30%'}">
+                <div ng-repeat="x in listLosers| orderBy:'-'" class="list_losers" ng-attr-title="{{x.name + '\n' + x.DispValue}}">
+                    <div class="list_losers_item">{{x.name}}</div>
+                    <div class="list_losers_item">{{x.DispValue}}</div>
+                </div>
+            </div>
+            <div class="top10_chart_container" ng-style="{'width':IsLeftRightFilterOpen?'60%':'40%'}">
+                <div class="top10_chart_container_header"></div>
+                <div id="widgit1" on-size-changed="TopChartSizeChangedReplot" class="top10_chart_area"></div>
+                <div class="top10_chart_container_footer"></div>
+            </div>
+            <div class="top10_chart_winner_panel" ng-style="{'width':IsLeftRightFilterOpen?'20%':'30%'}">
+                <div ng-repeat="x in listGainers" class="list_gainers" ng-attr-title="{{x.name + '\n' + x.DispValue}}">
+                    <span class="list_gainer_item">{{x.name}}</span>
+                    <span class="list_gainer_item">{{x.DispValue}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="top10_right_output_container" ng-show="IsLeftRightFilterOpen">
+            <div class="top10_filter_container">
+                <div class="top10_filter_right_box" style="height:72%">
+                    <div class="top10_filter_Head">{{Top10Panel[3].DispName}}</div>
+                    <div class="top10_filter_item_right_contianer">
+                        <div ng-repeat="item in Top10Panel[3].Data" class="top10_filter_region_item_container">
+                            <div class="top10_filter_region_item_parent" ng-attr-title="{{item.DispName}}" ng-click="SelectTop10Filteritem(item,Top10Panel[3])">
+                                <div ng-class="{'checkbox_selected':item.IsSelected,'checkbox_unselected':!item.IsSelected}"></div>
+                                <div class="top10_filter_item_text" ng-style="{'font-weight':item.IsSelected?'bold':IsChildSelected(item)?'bold':'normal','float':'left'}">{{item.DispName}}</div>
+                                <div ng-show="item.Data!=null && item.Data.length>0" ng-class="{'close_dropdown':item.IsOpen,'open_dropdown':!item.IsOpen}" ng-click="$event.stopPropagation();SetItemOpenClose(item);"></div>
+                            </div>
+                            <div class="top10_filter_region_item_child_continer" ng-repeat="item1 in item.Data" ng-show="item.IsOpen">
+                                <div class="top10_filter_region_item_parent" ng-attr-title="{{item.DispName +' - '+item1.DispName}}" ng-click="SelectTop10SubRegionFilteritem(item1,item,Top10Panel[3])">
+                                    <div ng-class="{'checkbox_selected':item1.IsSelected,'checkbox_unselected':!item1.IsSelected}"></div>
+                                    <div class="top10_filter_item_text" ng-style="{'font-weight':item1.IsSelected?'bold':'normal'}">{{item1.DispName}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="top10_filter_right_box" style="height:25%">
+                    <div class="top10_filter_Head">{{Top10Panel[2].DispName}}</div>
+                    <div class="top10_filter_item_left_contianer">
+                        <div ng-repeat="item in Top10Panel[2].Data" class="top10_filter_item" ng-click="SelectTop10Filteritem(item,Top10Panel[2])" ng-attr-title="{{item.DispName}}">
+                            <div ng-class="{'radio_selected':item.IsSelected,'radio_unselected':!item.IsSelected}"></div>
+                            <div class="top10_filter_item_text" ng-style="{'font-weight':item.IsSelected?'bold':'normal'}">{{item.DispName}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

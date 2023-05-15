@@ -1,0 +1,16 @@
+﻿<div ng-controller="KaleidoscopeView2Controller" class="kv2_container">
+<div class="kv2_head_container">
+    <div class="region_selecter_container">
+        <div class="region_text_container">Region:</div>
+        <div class="region_box_container">
+            <div class="region_box_item_container" ng-repeat="region in RegionFilter" ng-attr-title="{{region.DispName}}" ng-click="selectRegion(region)">
+                <span ng-class="{'checkbox_selected':region.IsSelected,'checkbox_unselected':!region.IsSelected}"></span>
+                <div ng-class="{'region_box_item_text_selected':region.IsSelected}" class="region_box_item_text">{{region.DispName}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kv2_output_container">
+    <div id="widgit2" class="widgit2_container"></div>
+</div>
+</div>

@@ -1,0 +1,36 @@
+﻿<div class="top_menu_layout" ng-controller="TopMenuController" ng-click="clickLayout();">
+    <div class="top_menu">
+        <div class="top_menu_logo_container">
+            <div class="logo_icon"></div>
+        </div>
+        <div class="top_menu_module_panel_container">
+            <div class="module_background" style="left:-44px" ng-class="{'selected_module':(getSelectedModule().ModuleName=='EVOLUTION')}" ng-click="clickModule(getModuleByModuleName('EVOLUTION'))">EVOLUTION</div>
+            <div class="module_background" style="left:-37px" ng-class="{'selected_module':(getSelectedModule().ModuleName=='NKA')}" ng-click="clickModule(getModuleByModuleName('NKA'))">NKA</div>
+            <div class="module_background" ng-class="{'selected_module':(getSelectedModule().ModuleName=='TOP10')}" ng-click="clickModule(getModuleByModuleName('TOP10'))">TOP 10</div>
+            <div class="module_background" ng-class="{'selected_module':(getSelectedModule().ModuleName=='KV2')}" ng-click="clickModule(getModuleByModuleName('KV2'))">SCATTER PLOT</div>
+            <div class="module_background" ng-class="{'selected_module':(getSelectedModule().ModuleName=='KV1')}" ng-click="clickModule(getModuleByModuleName('KV1'))">KALEIDOSCOPE</div>
+        </div>
+        <div class="top_menu_setting_container">
+            <div class="logout_icon" title="Logout" ng-click="logOut()"></div>
+            <div style="display:none" title="Settings" class="setting_icon"></div>
+            <div class="home_icon" title="Home" ng-click="HomeButtonClick()"></div>
+            <input type="input" id="hiddenField" class="datepicker" style="display:none" />
+        </div>
+    </div>
+    <div class="top_menu_container">
+        <div class="containerView" ui-view="filterpanal-view"></div>
+    </div>
+    <div class="top_menu_footer">
+        <div class="top_menu_footer_left" style="width:25%">
+            {{getSelectedModule().footer.leftText}}
+        </div>
+        <!--<div class="top_menu_footer_center" style="width:50%">{{getSelectedModule().footer.centerText}}</div>-->
+        <div class="top_menu_footer_right" style="width:75%">
+            {{extraRightText(getSelectedModule().footer.rightText)}}
+            <div ng-if="getSelectedModule().ModuleName =='KV1'" class="footerRightHtml">
+                <div>
+                    <div style='float:right'><div class="footerRightHtml_txt">Decline vs PY</div><div class="footerRightHtml_redndot"></div></div><div style='float:right'><div class="footerRightHtml_txt">Growth vs PY</div><div class="footerRightHtml_greendot"></div></div>
+            </div>
+        </div>
+    </div>
+</div>

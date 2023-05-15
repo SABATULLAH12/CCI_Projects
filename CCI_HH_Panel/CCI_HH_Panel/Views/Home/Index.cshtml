@@ -1,0 +1,297 @@
+﻿@{
+    ViewBag.Title = "HH Panel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/CSS/dashboard.css" rel="stylesheet" />
+<script src="~/Scripts/Map/IndianMap.js"></script>
+
+<div class="container-module">
+    <div class="filter-panel-container">
+        <div class="time-period-container">
+            <div class="selection-name">TIME&nbsp;PERIOD&nbsp;: &nbsp;</div>
+            <div class="time-period-selection"></div>
+        </div>
+
+        <div class="demographic-container">
+            <div class="dem-selection-name">DEMOGRAPHIC&nbsp;OPTIONS&nbsp;</div>
+            <div class="demographic-options">
+                <div class="selected-text-container" title=""></div>
+                <div class="arrowdown-container"></div>
+            </div>
+            <div class="first-level-container"></div>
+            <div class="second-level-container"></div>
+        </div>
+
+    </div>
+    <div class="output-container">
+        <div class="output-section-1">
+            <div class="data-widget" id="mapWidget">
+                <div class="data-widget-header">
+                    <div class="data-widget-header-text">ALL INDIA PERFORMANCE</div>
+                </div>
+                <div class="expand-button">
+                    <div class="expand-button-icon"></div>
+                </div>
+                <div class="data-widget-content" style="height: 95%;">
+                    <div id="mapContainer"></div>
+                    <div class="map-directions" id="northDirection">
+                        <div class="direction-text"></div>
+                        <div class="direction-value"></div>
+                    </div>
+                    <div class="map-directions" id="southDirection">
+                        <div class="direction-text"></div>
+                        <div class="direction-value"></div>
+                    </div>
+                    <div class="map-directions" id="eastDirection">
+                        <div class="direction-text"></div>
+                        <div class="direction-value"></div>
+                    </div>
+                    <div class="map-directions" id="westDirection">
+                        <div class="direction-text"></div>
+                        <div class="direction-value"></div>
+                    </div>
+                    <div class="map-toggle">
+                        <div class="toggle-name selected toggle-state">State</div>
+                        <div class="toggle-button"></div>
+                        <div class="toggle-name toggle-city" style="left: 66%">City</div>
+                    </div>
+                </div>
+                <div id="ErrorPopup">
+                    <div id="ErrorBodyText">Data Not Available for State/City level</div>
+                </div>
+            </div>
+            <div class="data-widget" id="kpiSnapshotWidget">
+                <div class="data-widget-header">
+                    <div class="data-widget-header-text">KPI SNAPSHOT</div>
+                </div>
+                <div class="data-widget-content" style="height: 95%;">
+                    <div class="snapshot-widget" id="penetrationWidget">
+                        <div class="snapshot-widget-icon" id="penetrationWidgetIcon"></div>
+                        <div class="snapshot-widget-header">Penetration</div>
+                        <div class="snapshot-widget-graph">
+                            <div id="penetrationGraphImage"></div>
+                            <div id="penetrationGraph"></div>
+                            <div id="penetrationWidgetText">
+                                <div class="widget-value"></div>
+                                <div id="penetrationWidgetChange">
+                                    <div class="change-value"></div>
+                                    <div class="change-icon"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="snapshot-widget" id="frequencyWidget">
+                        <div class="snapshot-widget-icon" id="frequencyWidgetIcon"></div>
+                        <div class="snapshot-widget-header">Frequency</div>
+                        <div class="snapshot-widget-graph">
+                            <div id="frequencyGraphImage"></div>
+                            <div id="frequencyGraphColour"></div>
+                            <div id="frequencyWidgetText">
+                                <div class="widget-value"></div>
+                                <div id="frequencyWidgetChange">
+                                    <div class="change-value"></div>
+                                    <div class="change-icon"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="snapshot-widget" id="absoluteWidget">
+                        <div class="snapshot-widget-icon" id="absoluteWidgetIcon"></div>
+                        <div class="snapshot-widget-header">Absolute HHs</div>
+                        <div class="snapshot-widget-graph">
+                            <div id="absoluteWidgetText">
+                                <div class="widget-value" style="font-size: 1.5em;"></div>
+                                <div id="absoluteWidgetChange">
+                                    <div class="change-value" style="font-size: 1em;"></div>
+                                    <div class="change-icon" style="top: 55%;left: 65%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="snapshot-widget" id="volumeWidget">
+                        <div class="snapshot-widget-icon" id="volumeWidgetIcon"></div>
+                        <div class="snapshot-widget-header">Volume/Trip</div>
+                        <div class="snapshot-widget-graph">
+                            <div id="volumeGraphImage"></div>
+                            <div id="volumeGraphColour"></div>
+                            <div id="volumeWidgetText">
+                                <div class="widget-value"></div>
+                                <div id="volumeWidgetChange">
+                                    <div class="change-value"></div>
+                                    <div class="change-icon"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="output-section-2">
+            <div class="data-widget" id="scorecardWidget">
+                <div class="data-widget-header">
+                    <div class="data-widget-header-text">KPI TREND</div>
+                </div>
+                <div class="data-widget-content" style="height: 93%;">
+                    <div id="graphContainer"></div>
+                    <div id="legendContainer">
+                        <div class="legend-div">
+                            <div class="legend-icon" id="currentYear"></div>
+                            <div class="legend-text">Current Year</div>
+                        </div>
+                        <div class="legend-div">
+                            <div class="legend-icon" id="previousYear"></div>
+                            <div class="legend-text">Previous Year</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="data-widget" id="brandPerformanceWidget">
+                <div class="data-widget-header">
+                    <div class="data-widget-header-text">BRAND PERFORMANCE</div>
+                </div>
+                <div class="expand-button">
+                    <div class="expand-button-icon"></div>
+                </div>
+                <div class="data-widget-content" id="brandWidget" style="height: 96%;"></div>
+            </div>
+            <div class="data-widget" id="categoryPerformanceWidget">
+                <div class="data-widget-header">
+                    <div class="data-widget-header-text">CATEGORY PERFORMANCE</div>
+                </div>
+                <div class="expand-button">
+                    <div class="expand-button-icon"></div>
+                </div>
+                <div class="data-widget-content" id="categoryWidget" style="height: 93%;"></div>
+            </div>
+            <div class="data-widget" id="flavourPerformanceWidget">
+                <div class="data-widget-header">
+                    <div class="data-widget-header-text">FLAVOUR PERFORMANCE</div>
+                </div>
+                <div class="expand-button">
+                    <div class="expand-button-icon"></div>
+                </div>
+                <div class="data-widget-content" id="flavourWidget" style="height: 92%;"></div>
+            </div>
+            <div class="data-widget" id="companyPerformanceWidget">
+                <div class="data-widget-header">
+                    <div class="data-widget-header-text">COMPANY PERFORMANCE</div>
+                </div>
+                <div class="expand-button">
+                    <div class="expand-button-icon"></div>
+                </div>
+                <div class="data-widget-content" id="companyWidget" style="height: 93%;"></div>
+            </div>
+            <div class="data-widget" id="packPerformanceWidget">
+                <div class="data-widget-header">
+                    <div class="data-widget-header-text">PACK PERFORMANCE</div>
+                </div>
+                <div class="expand-button">
+                    <div class="expand-button-icon"></div>
+                </div>
+                <div class="data-widget-content" id="packWidget" style="height: 92%;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="zoom-map-div">
+        <div class="zoom-header">
+            <div class="zoom-header-text">ALL INDIA PERFORMANCE</div>
+            <div class="zoom-close"></div>
+        </div>
+        <div id="zoomMapContainer"></div>
+        <div class="map-directions" id="northDirection">
+            <div class="direction-text"></div>
+            <div class="direction-value"></div>
+        </div>
+        <div class="map-directions" id="southDirection">
+            <div class="direction-text"></div>
+            <div class="direction-value"></div>
+        </div>
+        <div class="map-directions" id="eastDirection">
+            <div class="direction-text"></div>
+            <div class="direction-value"></div>
+        </div>
+        <div class="map-directions" id="westDirection">
+            <div class="direction-text"></div>
+            <div class="direction-value"></div>
+        </div>
+    </div>
+    <div id="zoomWidgetContainer">
+        <div class="zoom-header">
+            <div class="zoom-header-text"></div>
+            <div class="zoom-close"></div>
+        </div>
+        <div class="zoom-container"></div>
+    </div>
+    <div class="calendar-container">
+        <div class="year-dropdown">Year&nbsp;
+            <select id="dropdown"></select>
+        </div>
+        <div class="qtr-block">
+            <div class="quarter-name">
+                <div class="quarter-inner-div">Q1</div>
+            </div>
+            <div class="quarter-name" style="top: 25%">
+                <div class="quarter-inner-div">Q2</div>
+            </div>
+            <div class="quarter-name" style="top: 50%">
+                <div class="quarter-inner-div">Q3</div>
+            </div>
+            <div class="quarter-name" style="top: 75%">
+                <div class="quarter-inner-div">Q4</div>
+            </div>
+        </div>
+        <div class="month-block">
+            <div class="month-row">
+                <div class="month-name">
+                    <div class="month-name-value">Jan</div>
+                </div>
+                <div class="month-name" style="position: absolute;left: 33%;">
+                    <div class="month-name-value">Feb</div>
+                </div>
+                <div class="month-name" style="position: absolute;left: 66%;">
+                    <div class="month-name-value">Mar</div>
+                </div>
+            </div>
+            <div class="month-row" style="top: 25%">
+                <div class="month-name">
+                    <div class="month-name-value">Apr</div>
+                </div>
+                <div class="month-name" style="position: absolute;left: 33%;">
+                    <div class="month-name-value">May</div>
+                </div>
+                <div class="month-name" style="position: absolute;left: 66%;">
+                    <div class="month-name-value">Jun</div>
+                </div>
+            </div>
+            <div class="month-row" style="top:50%;">
+                <div class="month-name">
+                    <div class="month-name-value">Jul</div>
+                </div>
+                <div class="month-name" style="position: absolute;left: 33%;">
+                    <div class="month-name-value">Aug</div>
+                </div>
+                <div class="month-name" style="position: absolute;left: 66%;">
+                    <div class="month-name-value">Sep</div>
+                </div>
+            </div>
+            <div class="month-row" style="top:75%;">
+                <div class="month-name">
+                    <div class="month-name-value">Oct</div>
+                </div>
+                <div class="month-name" style="position: absolute;left: 33%;">
+                    <div class="month-name-value">Nov</div>
+                </div>
+                <div id="22" class="month-name" style="position: absolute;left: 66%;">
+                    <div class="month-name-value">Dec</div>
+                </div>
+            </div>
+        </div>
+        <div class="qtr-selection-block">
+            <div class="qtr-selection" id="qtrSelection1"></div>
+            <div class="qtr-selection" id="qtrSelection2" style="top: 25%"></div>
+            <div class="qtr-selection" id="qtrSelection3" style="top: 50%"></div>
+            <div class="qtr-selection" id="qtrSelection4" style="top: 75%"></div>
+        </div>
+    </div>
+</div>

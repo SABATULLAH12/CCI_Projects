@@ -1,0 +1,147 @@
+2022-07-27 18:45:45,196 [1] DEBUG  Application - Application Started
+2022-07-27 18:46:00,501 [16] DEBUG  Application - GetPercentChartChart '
+WITH MEMBER currentdate as "[Period].[Day 445].&[" +format(CDATE("07-26-2022"), "MMM dd yyyy" + "]")
+                                 MEMBER periodname as [Period].[Day 445].currentmember.UNIQUE_NAME
+                                            SELECT {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC QTD % vs PY (CD)],[Measures].[Unit Cases AC MTD % vs PY (CD)],[Measures].[Unit Cases AC WTD % vs PY (CD)],[Measures].[Unit Cases AC % vs PY (CD)] }}  ON ROWS,
+                                {[Ship From].[Business Unit].children*[Period].[Day 445].[Day 445].allmembers
+                                } HAVING(periodname= currentdate)ON COLUMNS
+                                FROM(SELECT {[Ship From].[Business Unit].&[India & Southwest Asia]}ON COLUMNS FROM[Model])WHERE({[Reporting View].[Reporting View].&[Operational View]})'
+2022-07-27 18:46:00,534 [16] DEBUG  Application - getINSWAChartQuery '
+with member currentdate
+                        as
+                        "[Period].[Day 445].&[Jul 26 2022]"
+                        member periodname as
+                        [Period].[Day 445].currentmember.unique_name
+                        SELECT { [Measures].[Unit Cases AC YTD],[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]
+                        }on rows
+                        ,
+                        {[Period].[Day 445].[Day 445].allmembers 
+                        
+                        } 
+                        having(periodname=currentdate)on columns
+                        from [Model]
+                        where ({[Reporting View].[Reporting View].&[Operational View]} )'
+2022-07-27 18:46:00,536 [16] DEBUG  Application - getBLineNBarChart '
+WITH MEMBER CalendarDate As CDATE("07-26-2022")
+                            MEMBER StartDate As[Period].[Day 445].CURRENTMEMBER.UNIQUE_NAME
+                            MEMBER EndDate As '[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']')
+                            MEMBER EndDateName As VBA!left(VBA!right('[Period].[Day 445].&[' +format(CalendarDate, 'MMM dd yyyy' + ']'),12),6)
+                            MEMBER DATENAME As VBA!left([Period].[Day 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME'),6)
+                            MEMBER CurrentYear As cstr(Year(CalendarDate)-5)
+                            MEMBER YearName As [Period].[Year 445].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+                            SELECT  {{[Measures].[Unit Cases AC YTD % vs PY (CD)],[Measures].[Unit Cases AC YTD]}} ON ROWS
+                            ,{[Period].[Day 445].[Day 445].ALLMEMBERS * [Period].[Year 445].[Year 445].allmembers}
+                            HAVING (StartDate<=EndDate and EndDateName=DATENAME and YearName>CurrentYear) 
+                            ON COLUMNS
+                            FROM [Model]
+                            WHERE ({[Reporting View].[Reporting View].&[Operational View]}   )'
+2022-07-27 18:46:29,963 [16] DEBUG  Application - time Taken To open Connection: 10811ms for query:0
+2022-07-27 18:46:29,969 [16] DEBUG  Application - time Taken To run query: 17844ms for query:0
+2022-07-27 18:46:29,972 [16] DEBUG  Application - time Taken To Close Connection: 763ms for query:0
+2022-07-27 18:46:30,516 [13] DEBUG  Application - time Taken To open Connection: 11052ms for query:1
+2022-07-27 18:46:30,522 [13] DEBUG  Application - time Taken To run query: 18459ms for query:1
+2022-07-27 18:46:30,527 [13] DEBUG  Application - time Taken To Close Connection: 460ms for query:1
+2022-07-27 18:46:35,368 [14] DEBUG  Application - time Taken To open Connection: 10717ms for query:2
+2022-07-27 18:46:45,534 [14] DEBUG  Application - time Taken To run query: 23162ms for query:2
+2022-07-27 18:46:45,540 [14] DEBUG  Application - time Taken To Close Connection: 944ms for query:2
+2022-07-27 18:46:46,418 [15] DEBUG  Application - GetRegionData 'WITH MEMBER BUSINESSNAME AS
+            [Ship From].[Business Unit].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER REGIONNAME AS 
+            [Ship From].[L0 - Region].CURRENTMEMBER.PROPERTIES('MEMBER_NAME')
+            MEMBER BUSINESSID AS
+            [Ship From].[Business Unit].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER REGIONID AS 
+            [Ship From].[L0 - Region].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BOTTLERGROUPID AS 
+            [Ship From].[L0 - Entity].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER ZONEID AS 
+            [Ship From].[L0 - Zone].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BUSHIPID AS 
+            [Ship From].[BU Ship From].CURRENTMEMBER.UNIQUE_NAME
+            SELECT {BUSINESSID,REGIONID,BOTTLERGROUPID,ZONEID,BUSHIPID}ON COLUMNS
+            ,{[Ship From].[Business Unit].ALLMEMBERS * [Ship From].[L0 - Region].[L0 - Region].ALLMEMBERS
+            *[Ship From].[L0 - Entity].[L0 - Entity].ALLMEMBERS * [Ship From].[L0 - Zone].[L0 - Zone].ALLMEMBERS *
+            [Ship From].[BU Ship From].[BU Ship From].ALLMEMBERS}
+            HAVING(BUSINESSNAME='India & Southwest Asia' )ON ROWS
+            FROM [Model]'
+2022-07-27 18:46:46,421 [15] DEBUG  Application - GetBrandData 'WITH MEMBER CATEGORYID AS
+            [Product].[L0 - Category].CURRENTMEMBER.UNIQUE_NAME
+            MEMBER BRANDID AS 
+            [Product].[L0 - Brand].CURRENTMEMBER.UNIQUE_NAME
+            SELECT NON EMPTY{[Product].[L0 - Category].CHILDREN * [Product].[L0 - Brand].CHILDREN}
+            HAVING (CATEGORYID<>'[Product].[L0 - Category].&[]' AND CATEGORYID<>'[Product].[L0 - Category].&')
+            ON ROWS
+            ,{CATEGORYID,BRANDID}ON COLUMNS
+            FROM [Model]'
+2022-07-27 18:46:51,877 [14] DEBUG  Application - time Taken To open Connection: 2613ms for query:1
+2022-07-27 18:46:51,879 [14] DEBUG  Application - time Taken To run query: 2350ms for query:1
+2022-07-27 18:46:51,881 [14] DEBUG  Application - time Taken To Close Connection: 490ms for query:1
+2022-07-27 18:46:54,360 [15] DEBUG  Application - time Taken To open Connection: 3001ms for query:0
+2022-07-27 18:46:54,369 [15] DEBUG  Application - time Taken To run query: 4294ms for query:0
+2022-07-27 18:46:54,383 [15] DEBUG  Application - time Taken To Close Connection: 640ms for query:0
+2022-07-27 18:50:32,315 [1] DEBUG  Application - Application Started
+2022-07-27 18:51:43,807 [11] DEBUG  Application - token is valid
+2022-07-27 18:51:43,824 [11] DEBUG  Application - request.UrlReferrer.Host:localhost
+2022-07-27 18:51:43,827 [11] DEBUG  Application - Uri(authServer).Host:localhost
+2022-07-27 18:51:45,102 [11] ERROR  Application - System.Data.SqlClient.SqlException (0x80131904): Ambiguous column name 'RoleName'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.DoLoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String tableName)
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(DbCommand command)
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(String storedProcedureName, Object[] parameterValues)
+   at DAL.DataAccess.GetData(IDbConnection conn, String strSPName, Object[] param) in D:\CCI_PRojects\CCI_DSR\trunk\CCI_KH_DSR\DAL\DataAccess.cs:line 40
+   at DAL.LoginRepository.LoginDetails(Int32 userId) in D:\CCI_PRojects\CCI_DSR\trunk\CCI_KH_DSR\DAL\DALRepository\LoginRepository.cs:line 23
+   at BAL.Login.GetUserDetails(Int32 userId) in D:\CCI_PRojects\CCI_DSR\trunk\CCI_KH_DSR\BAL\BALRepository\Login.cs:line 21
+   at CCI_KH_DSR.Controllers.HomeController.ValidateUser(String param) in D:\CCI_PRojects\CCI_DSR\trunk\CCI_KH_DSR\CCI_KH_DSR\Controllers\HomeController.cs:line 169
+ClientConnectionId:82fa71b1-8ccf-410b-978d-f12ad2b3c7a3
+Error Number:209,State:1,Class:16
+2022-07-27 18:53:56,690 [8] DEBUG  Application - token is valid
+2022-07-27 18:53:56,696 [8] DEBUG  Application - request.UrlReferrer.Host:localhost
+2022-07-27 18:53:56,700 [8] DEBUG  Application - Uri(authServer).Host:localhost
+2022-07-27 18:53:57,042 [8] ERROR  Application - System.Data.SqlClient.SqlException (0x80131904): Ambiguous column name 'RoleName'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.DoLoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String tableName)
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(DbCommand command)
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(String storedProcedureName, Object[] parameterValues)
+   at DAL.DataAccess.GetData(IDbConnection conn, String strSPName, Object[] param) in D:\CCI_PRojects\CCI_DSR\trunk\CCI_KH_DSR\DAL\DataAccess.cs:line 40
+   at DAL.LoginRepository.LoginDetails(Int32 userId) in D:\CCI_PRojects\CCI_DSR\trunk\CCI_KH_DSR\DAL\DALRepository\LoginRepository.cs:line 23
+   at BAL.Login.GetUserDetails(Int32 userId) in D:\CCI_PRojects\CCI_DSR\trunk\CCI_KH_DSR\BAL\BALRepository\Login.cs:line 21
+   at CCI_KH_DSR.Controllers.HomeController.ValidateUser(String param) in D:\CCI_PRojects\CCI_DSR\trunk\CCI_KH_DSR\CCI_KH_DSR\Controllers\HomeController.cs:line 169
+ClientConnectionId:82fa71b1-8ccf-410b-978d-f12ad2b3c7a3
+Error Number:209,State:1,Class:16
+2022-07-27 18:56:39,235 [11] DEBUG  Application - token is valid
+2022-07-27 18:56:39,711 [11] DEBUG  Application - request.UrlReferrer.Host:localhost
+2022-07-27 18:56:49,786 [11] DEBUG  Application - Uri(authServer).Host:localhost
